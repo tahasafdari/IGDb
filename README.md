@@ -2,6 +2,24 @@
 
 Welcome to IGDB, the Internet Game Database, where you can explore, review, and discuss your favorite video games!
 
+## Getting Started
+
+First, run the development server:
+
+```bash
+# install dependencies
+npm install
+
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 ## Table of Contents
 
 - [Features](#features)
@@ -52,4 +70,3 @@ Follow these instructions to get a copy of the project up and running on your lo
 ## API Documentation
 
 You can find the API documentation (Here goes the link to our documentation) to understand how to interact with the backend GraphQL API.
-
