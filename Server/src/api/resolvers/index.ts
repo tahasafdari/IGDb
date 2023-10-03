@@ -1,3 +1,5 @@
+import gameResolver from './gameResolver';
+import reviewResolver from './reviewResolver';
 import userReslover from './userResolver';
 
-export default [userReslover];
+export default [userReslover, gameResolver, reviewResolver];

@@ -1,0 +1,13 @@
+type Game {
+title : String!
+apiId : Int!
+}
+
+type Query {
+games : [Game!]!
+}
+
+type Mutation {
+createGame(title : String!, apiId : Int!) : Game!
+}
+
