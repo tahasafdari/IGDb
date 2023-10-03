@@ -6,10 +6,6 @@ const reviewModel = new mongoose.Schema<Review>({
     type: String,
     required: true,
   },
-  ownerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -24,9 +20,10 @@ const reviewModel = new mongoose.Schema<Review>({
   createdAt: {
     type: Date,
     required: true,
+    default: Date.now(),
   },
   gameId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     required: true,
   },
 });

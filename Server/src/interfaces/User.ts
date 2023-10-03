@@ -20,9 +20,14 @@ interface UserIdWithToken {
   role: 'admin' | 'user';
 }
 
+interface UserForReview {
+  id?: string;
+  user_name: string;
+}
+
 interface UserLogin {
   email: string;
   password: string;
   id: string;
 }
-export {User, UserTest, UserIdWithToken, UserLogin};
+export {User, UserTest, UserIdWithToken, UserLogin, UserForReview};
