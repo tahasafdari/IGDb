@@ -2,25 +2,25 @@
 scalar DateTime
 
 type Review {
-    id: ID!
     text: String!
-    onwer: User!
+    owner: User!
     score: Float!
     createdAt: DateTime!
-    gameId: ID!
+    gameId: Int!
 }
 
 input InputReview {
     text: String!
     score: Float!
-    gameId: ID!
+    gameId: Int!
+    ownerId: ID!
 }
 
 type Query {
     reviews: [Review!]!
     reviewById(id: ID!): Review!
     reviewsByOwnerId(ownerId: ID!): [Review]!
-    reviewsByGameId(gameId: ID!): [Review!]!
+    reviewsByGameId(gameId: Int!): [Review!]!
 }
 
 type Mutation {
