@@ -1,0 +1,32 @@
+
+scalar DateTime
+
+type Review {
+    id: ID!
+    text: String!
+    onwer: User!
+    score: Float!
+    createdAt: DateTime!
+    gameId: ID!
+}
+
+input InputReview {
+    text: String!
+    score: Float!
+    gameId: ID!
+}
+
+type Query {
+    reviews: [Review!]!
+    reviewById(id: ID!): Review!
+    reviewsByOwnerId(ownerId: ID!): [Review]!
+    reviewsByGameId(gameId: ID!): [Review!]!
+}
+
+type Mutation {
+    createReview(review: InputReview!): Review!
+    updateReview(id: ID!, review: InputReview!): Review!
+    deleteReview(id: ID!): Review!
+}
+
+
