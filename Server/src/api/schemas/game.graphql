@@ -1,13 +1,17 @@
 type Game {
+id : ID!
 title : String!
-apiId : Int!
+gameApiId : Int!
 }
 
 type Query {
-games : [Game!]!
+games : [Game]!
+gameById(gameId : ID!) : Game!
+gameByTitle(title : String!) : Game!
+gameByApiId(gameApiId : Int!) : Game!
 }
 
 type Mutation {
-createGame(title : String!, apiId : Int!) : Game!
+createGame(title : String!, gameApiId : Int!) : Game!
 }
 

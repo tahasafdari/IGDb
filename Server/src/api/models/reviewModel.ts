@@ -22,8 +22,9 @@ const reviewModel = new mongoose.Schema<Review>({
     required: true,
     default: Date.now(),
   },
-  gameId: {
-    type: Number,
+  game: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Game',
     required: true,
   },
 });
