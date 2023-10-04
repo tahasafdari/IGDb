@@ -5,6 +5,7 @@ apiId : Int!
 
 type Query {
 games : [Game!]!
+externalGamesByName(name : String!) : [Game!]!
 }
 
 type Mutation {
