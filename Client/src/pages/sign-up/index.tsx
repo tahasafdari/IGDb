@@ -28,14 +28,39 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    
+    const user = {
+      user_name: data.get('user_name'),
       email: data.get('email'),
       password: data.get('password'),
-    });
-  };
+    };
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("User registered:", result);
+        // TODO: Redirect or show success message
+      
+      } else {
+        console.error("Error registering user:", await response.text());
+        // TODO: Show error message to user
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      // TODO: Handle network errors or other issues
+    }
+};
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -47,7 +72,7 @@ export default function SignUp() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: 'url(https://source.unsplash.com/random?gaming)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -73,25 +98,15 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete="username"
+                  name="user_name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="user_name"
+                  label="User Name"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
