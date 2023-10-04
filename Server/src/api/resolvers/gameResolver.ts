@@ -2,6 +2,7 @@ import checkAuth from '../../functions/checkAuth';
 import {Game} from '../../interfaces/Game';
 import {Review} from '../../interfaces/Review';
 import {UserIdWithToken} from '../../interfaces/User';
+import {fetchByName} from '../../utils/api-fetcher';
 import gameModel from '../models/gameModel';
 import {GraphQLError} from 'graphql';
 
@@ -68,6 +69,14 @@ export default {
         });
       }
       return game;
+    },
+    externalGamesByName: async (_: undefined, args: {name: string}) => {
+      try {
+        const games: Game[] = await fetchByName(args.name);
+        return games;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 
