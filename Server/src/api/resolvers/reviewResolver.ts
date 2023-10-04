@@ -2,58 +2,129 @@ import {GraphQLError} from 'graphql';
 import reviewModel from '../models/reviewModel';
 import userModel from '../models/userModel';
 import {Review} from '../../interfaces/Review';
-import {User} from '../../interfaces/User';
+import {UserIdWithToken, UserOfReview} from '../../interfaces/User';
+import gameModel from '../models/gameModel';
+import checkAuth from '../../functions/checkAuth';
 
 export default {
   Query: {
     reviews: async () => {
-      const reviews = reviewModel.find() as unknown as Review[];
+      const reviews = reviewModel
+        .find()
+        .populate('game owner') as unknown as Review[];
       return reviews;
     },
-    reviewsByOwnerId: async (_: undefined, args: {ownerId: string}) => {
-      const owner = await userModel.findById(args.ownerId);
+    reviewsByOwnerId: async (
+      _: undefined,
+      args: {ownerId: string},
+      user: UserIdWithToken
+    ) => {
+      checkAuth(user);
+      const owner = (await userModel
+        .findById(args.ownerId)
+        .select('-role -password -__v -email')) as unknown as UserOfReview;
+      console.log(owner);
       if (!owner) {
         throw new GraphQLError('User not found', {
           extensions: {code: 'NOT_FOUND'},
         });
       }
-
-      const reviews = reviewModel.find({owner: owner}) as unknown as Review[];
+      const reviews = reviewModel
+        .find({
+          owner: owner,
+        })
+        .populate('owner game') as unknown as Review[];
+      console.log(reviews);
       return reviews;
     },
 
-    reviewsByGameId: async (_: undefined, args: {gameId: string}) => {
-      console.log(args);
+    reviewsByGameId: async (
+      _: undefined,
+      args: {gameId: string},
+      user: UserIdWithToken
+    ) => {
+      checkAuth(user);
+      const game = await gameModel.findById(args.gameId);
+      if (!game) {
+        throw new GraphQLError('Game not found', {
+          extensions: {code: 'NOT_FOUND'},
+        });
+      }
       const reviews = reviewModel
         .find({
-          gameId: args.gameId,
+          game: game,
         })
-        .populate('owner') as unknown as Review[];
+        .populate('owner game') as unknown as Review[];
       return reviews;
     },
   },
 
   Mutation: {
-    createReview: async (_: undefined, args: {review: Review}) => {
-      if (!args.review.text || !args.review.score || !args.review.gameId) {
+    createReview: async (
+      _: undefined,
+      args: {review: Review},
+      user: UserIdWithToken //context
+    ) => {
+      checkAuth(user);
+
+      if (!args.review.text || !args.review.score) {
         throw new GraphQLError('all the fields required', {
           extensions: {code: 'NOT_FOUND'},
         });
       }
-      const owner = (await userModel
-        .findById(args.review.ownerId)
-        .select('-__v -password -email -role')) as unknown as User;
 
+      const owner = (await userModel
+        .findById(user.id)
+        .select('-__v -password -role -email')) as unknown as UserOfReview;
       if (!owner) {
         throw new GraphQLError('User not found', {
           extensions: {code: 'NOT_FOUND'},
         });
       }
+      const game = await gameModel.findById(args.review.game.id);
+      if (!game) {
+        throw new GraphQLError('Game not found', {
+          extensions: {code: 'NOT_FOUND'},
+        });
+      }
+      args.review.game = game;
       const review = new reviewModel(args.review);
       review.owner = owner;
-      await review.save();
-      console.log(review);
-      return review;
+      return await review.save();
+    },
+
+    updateReview: async (_: undefined, args: Review, user: UserIdWithToken) => {
+      checkAuth(user);
+      if (!args.id) {
+        throw new GraphQLError('Review not found', {
+          extensions: {code: 'NOT_FOUND'},
+        });
+      }
+      const updatedReview = (await reviewModel
+        .findByIdAndUpdate(args.id, args, {
+          new: true,
+        })
+        .populate('owner game')) as unknown as Review;
+      console.log(updatedReview);
+      return updatedReview;
+    },
+
+    deleteReview: async (
+      _: undefined,
+      args: {id: string},
+      user: UserIdWithToken
+    ) => {
+      checkAuth(user);
+      if (!args.id) {
+        throw new GraphQLError('Review not found', {
+          extensions: {code: 'NOT_FOUND'},
+        });
+      }
+      const deletedReview = (await reviewModel
+        .findByIdAndDelete(args.id)
+        .populate('owner game')) as unknown as Review;
+      console.log(deletedReview);
+      return deletedReview;
     },
   },
 };

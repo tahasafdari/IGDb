@@ -1,13 +1,14 @@
 import {Date, Document, Types} from 'mongoose';
-import {UserForReview} from './User';
+import {UserOfReview} from './User';
+import {Game} from './Game';
 
 interface Review extends Document {
+  _id: Types.ObjectId;
   text: string;
-  ownerId: string | Types.ObjectId;
-  owner: UserForReview;
+  owner: UserOfReview;
   score: number;
   createdAt: Date;
-  gameId: number;
+  game: Game;
 }
 
 export {Review};

@@ -7,7 +7,7 @@ const gameModel = new mongoose.Schema<Game>({
     required: true,
     unique: true,
   },
-  apiId: {
+  gameApiId: {
     type: Number,
     required: true,
     unique: true,
