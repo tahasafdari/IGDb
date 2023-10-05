@@ -1,17 +1,18 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Link from '@mui/material/Link'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Typography from '@mui/material/Typography'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useRouter } from 'next/router'
 
 function Copyright(props: any) {
   return (
@@ -23,21 +24,52 @@ function Copyright(props: any) {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
-
-const defaultTheme = createTheme();
+const defaultTheme = createTheme()
 
 export default function SignInSide() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const Router = useRouter()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+
+    const credentials = {
+      email: data.get('email') as string,
+      password: data.get('password') as string,
+    }
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      })
+
+      if (response.ok) {
+        const result = await response.json()
+        // Store the received token or any other relevant information
+        // TODO: Store token in local storage or cookies (cookies more secure)
+        localStorage.setItem('token', result.token)
+        localStorage.setItem('user', JSON.stringify(result.user))
+        localStorage.setItem('isAuthenticated', 'true')
+
+        // TODO: Redirect to a protected route or show success message
+        Router.push('/dashboard')
+
+        alert('User authenticated')
+      } else {
+        console.error('Error authenticating user:', await response.text())
+        // TODO: Show error message to user
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      // TODO: Handle network errors or other issues
+    }
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -49,7 +81,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: 'url(https://source.unsplash.com/random?gaming)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -124,5 +156,5 @@ export default function SignInSide() {
         </Grid>
       </Grid>
     </ThemeProvider>
-  );
+  )
 }
