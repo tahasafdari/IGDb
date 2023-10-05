@@ -1,8 +1,8 @@
-interface CarouselleTileData {
+interface VerboseGame {
     title: string;
     image: string;
     externalId: number;
     rating: number;
 }
 
-export {CarouselleTileData};
+export {VerboseGame};

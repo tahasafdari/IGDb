@@ -1,4 +1,4 @@
-import { CarouselleTileData } from '../interfaces/CarouselleTileData';
+import {VerboseGame} from '../interfaces/CarouselleTileData';
 import {Game} from '../interfaces/Game';
 import {GameFromRawg} from '../interfaces/GameFromRawg';
 
@@ -13,9 +13,8 @@ export default {
     return game as unknown as Game;
   },
   formatTile: (rawgGame: GameFromRawg) => {
-
     console.log(rawgGame);
-    
+
     const game = {
       gameApiId: rawgGame.id,
       title: rawgGame.name,
@@ -24,6 +23,6 @@ export default {
       description: rawgGame.description_raw,
     };
 
-    return game as unknown as CarouselleTileData;
+    return game as unknown as VerboseGame;
   },
 };
