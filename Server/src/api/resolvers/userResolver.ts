@@ -11,7 +11,6 @@ export default {
       const users = await fetchData<AuthMessageResponse>(
         `${process.env.AUTH_URL}/users`
       );
-      console.log(users);
       return users;
     },
     userById: async (_: undefined, args: {id: string}) => {
@@ -74,7 +73,6 @@ export default {
       args: {user: User}, //input
       user: UserIdWithToken //context
     ) => {
-      console.log('HIIIIIIII', args.user);
       const options: RequestInit = {
         method: 'PUT',
         headers: {
@@ -83,12 +81,10 @@ export default {
         },
         body: JSON.stringify(args.user),
       };
-      console.log(args.user.favourite_games);
       const response = await fetchData<User>(
         `${process.env.AUTH_URL}/users`,
         options
       );
-      console.log('Hellooooo', response);
       return response;
     },
 
