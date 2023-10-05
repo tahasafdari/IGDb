@@ -15,13 +15,13 @@ const userModel = new mongoose.Schema<User>({
   profile_image: {
     type: String,
     required: false,
-    },
+  },
   favourite_games: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Game',
-    }
-  ]
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Game',
+    },
+  ],
 });
 
 export default mongoose.model<User>('User', userModel);

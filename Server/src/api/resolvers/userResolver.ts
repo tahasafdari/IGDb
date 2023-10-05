@@ -42,7 +42,7 @@ export default {
   Mutation: {
     login: async (
       _: undefined,
-      args: {credentials: {username: string; password: string}}
+      args: {credentials: {email: string; password: string}}
     ) => {
       const options: RequestInit = {
         method: 'POST',
@@ -74,6 +74,7 @@ export default {
       args: {user: User}, //input
       user: UserIdWithToken //context
     ) => {
+      console.log('HIIIIIIII', args.user);
       const options: RequestInit = {
         method: 'PUT',
         headers: {
@@ -82,10 +83,12 @@ export default {
         },
         body: JSON.stringify(args.user),
       };
+      console.log(args.user.favourite_games);
       const response = await fetchData<User>(
         `${process.env.AUTH_URL}/users`,
         options
       );
+      console.log('Hellooooo', response);
       return response;
     },
 
@@ -109,24 +112,24 @@ export default {
     },
 
     addFavouriteGame: async (
-        _: undefined,
-        args: {gameId: string},
-        user: UserIdWithToken
-        ) => {
-            const options: RequestInit = {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`,
-                },
-                body: JSON.stringify(args.gameId),
-            };
-            const response = await fetchData<User>(
-                `${process.env.AUTH_URL}/users`,
-                options
-            );
-            console.log(response)
-            return response;
+      _: undefined,
+      args: {gameId: string},
+      user: UserIdWithToken
+    ) => {
+      const options: RequestInit = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(args.gameId),
+      };
+      const response = await fetchData<User>(
+        `${process.env.AUTH_URL}/users`,
+        options
+      );
+      console.log(response);
+      return response;
     },
 
     updateUserAsAdmin: async (
