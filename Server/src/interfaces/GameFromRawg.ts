@@ -5,6 +5,7 @@ interface GameFromRawg {
   background_image: string;
   rating: number;
   metacritic: number;
+  description_raw: string;
 }
 
 export {GameFromRawg};
