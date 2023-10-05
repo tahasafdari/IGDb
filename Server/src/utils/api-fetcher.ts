@@ -1,20 +1,37 @@
 import {Game} from '../interfaces/Game';
 import RawgToGame from './RawgToGame';
 
-const fetchById = async (id: string) => {
-  return (await fetch(`https://api.rawg.io/api/games/${id}`, {
-    method: 'GET',
-    headers: {
-      'X-Auth-Token': process.env.RAWG_API_KEY as string,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => data)) as unknown as Game;
+const fetchById = async (id: string, mode: number) => {
+  console.log(`${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`);
+  
+  const res = await fetch(
+    `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`,
+    {
+      method: 'GET',
+      headers: {
+        'X-Auth-Token': process.env.RAWG_API_KEY as string,
+      },
+    }
+  )
+  const data = await res.json();
+
+  console.log(data.background_image);
+
+  switch (mode) {
+    case 0:
+      return RawgToGame.format(data);
+    case 1:
+      console.log("getting tile");
+      
+      return RawgToGame.formatTile(data);
+    default: 
+      return RawgToGame.format(data);
+        }
 };
 
 const fetchByName = async (name: string) => {
   const res = await fetch(
-    `https://api.rawg.io/api/games?key=${process.env.RAWG_API_KEY}&search=${name}`,
+    `${process.env.RAWG_API_URL}games?key=${process.env.RAWG_API_KEY}&search=${name}`,
     {
       method: 'GET',
       headers: {

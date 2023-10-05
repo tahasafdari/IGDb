@@ -8,12 +8,21 @@ type ExternalGame {
 title : String!
 }
 
+type CarouselleTileData {
+internalId: ID
+title : String!
+gameApiId : Int!
+image: String!
+description: String!
+}
+
 type Query {
 games : [Game]!
 gameById(gameId : ID!) : Game!
 gameByTitle(title : String!) : Game!
 gameByApiId(gameApiId : Int!) : Game!
 externalGamesByName(name : String!) : [ExternalGame!]!
+externalGameByApiId(gameApiId : Int!,  mode : Int!) : CarouselleTileData!
 }
 
 type Mutation {
