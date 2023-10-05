@@ -3,7 +3,7 @@ type User {
   user_name: String!
   email: String!
   profile_image: String
-  favourite_games: [Game]
+  favourite_games: [ID]
 }
 
 type TokenMessage {
@@ -13,7 +13,7 @@ type TokenMessage {
 }
 
 input Credentials {
-  username: String!
+  email: String!
   password: String!
 }
 
@@ -28,7 +28,8 @@ input UserModify {
   user_name: String
   email: String
   password: String
-  profile_picture: String
+  profile_image: String
+  favourite_games: [ID]
 }
 
 type Query {
@@ -44,6 +45,4 @@ type Mutation {
   deleteUser: TokenMessage
   updateUserAsAdmin(user: UserModify!, id: ID!): TokenMessage
   deleteUserAsAdmin(id: ID!): TokenMessage
-  addFavouriteGame(gameId: ID!): TokenMessage
-  addProfilePicture(image: String!): TokenMessage
 }
