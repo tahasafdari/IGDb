@@ -2,8 +2,10 @@ import {Game} from '../interfaces/Game';
 import RawgToGame from './RawgToGame';
 
 const fetchById = async (id: string, mode: number) => {
-  console.log(`${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`);
-  
+  console.log(
+    `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`
+  );
+
   const res = await fetch(
     `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`,
     {
@@ -12,7 +14,7 @@ const fetchById = async (id: string, mode: number) => {
         'X-Auth-Token': process.env.RAWG_API_KEY as string,
       },
     }
-  )
+  );
   const data = await res.json();
 
   console.log(data.background_image);
@@ -21,12 +23,10 @@ const fetchById = async (id: string, mode: number) => {
     case 0:
       return RawgToGame.format(data);
     case 1:
-      console.log("getting tile");
-      
       return RawgToGame.formatTile(data);
-    default: 
+    default:
       return RawgToGame.format(data);
-        }
+  }
 };
 
 const fetchByName = async (name: string) => {

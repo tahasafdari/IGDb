@@ -1,4 +1,4 @@
-import {VerboseGame} from '../interfaces/CarouselleTileData';
+import {VerboseGame} from '../interfaces/VerboseGame';
 import {Game} from '../interfaces/Game';
 import {GameFromRawg} from '../interfaces/GameFromRawg';
 
