@@ -13,8 +13,6 @@ export default {
     return game as unknown as Game;
   },
   formatTile: (rawgGame: GameFromRawg) => {
-    console.log(rawgGame);
-
     const game = {
       gameApiId: rawgGame.id,
       title: rawgGame.name,

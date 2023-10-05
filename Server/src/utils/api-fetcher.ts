@@ -2,9 +2,6 @@ import {Game} from '../interfaces/Game';
 import RawgToGame from './RawgToGame';
 
 const fetchById = async (id: string, mode: number) => {
-  console.log(
-    `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`
-  );
 
   const res = await fetch(
     `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`,
@@ -16,8 +13,6 @@ const fetchById = async (id: string, mode: number) => {
     }
   );
   const data = await res.json();
-
-  console.log(data.background_image);
 
   switch (mode) {
     case 0:
@@ -42,8 +37,6 @@ const fetchByName = async (name: string) => {
 
   const data = await res.json();
   const gameArr: Game[] = [data.count];
-  console.log(data.results[0]);
-  console.log(data.results.length);
 
   for (let index = 0; index < data.results.length; index++) {
     gameArr[index] = RawgToGame.format(data.results[index]);
