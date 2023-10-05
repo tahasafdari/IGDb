@@ -8,7 +8,7 @@ type ExternalGame {
 title : String!
 }
 
-type CarouselleTileData {
+type VerboseGame {
 internalId: ID
 title : String!
 gameApiId : Int!
@@ -22,7 +22,7 @@ gameById(gameId : ID!) : Game!
 gameByTitle(title : String!) : Game!
 gameByApiId(gameApiId : Int!) : Game!
 externalGamesByName(name : String!) : [ExternalGame!]!
-externalGameByApiId(gameApiId : Int!,  mode : Int!) : CarouselleTileData!
+externalGameByApiId(gameApiId : Int!,  mode : Int!) : VerboseGame!
 }
 
 type Mutation {
