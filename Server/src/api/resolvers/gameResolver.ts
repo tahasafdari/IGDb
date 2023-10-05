@@ -70,7 +70,12 @@ export default {
       }
       return game;
     },
-    externalGamesByName: async (_: undefined, args: {name: string}) => {
+    externalGamesByName: async (
+      _: undefined,
+      args: {name: string},
+      user: UserIdWithToken
+    ) => {
+      checkAuth(user);
       try {
         const games: Game[] = await fetchByName(args.name);
         return games;
@@ -78,14 +83,19 @@ export default {
         console.log(error);
       }
     },
-    externalGameByApiId: async (_: undefined, args: {gameApiId: number, mode: number}) => {
+    externalGameByApiId: async (
+      _: undefined,
+      args: {gameApiId: number; mode: number},
+      user: UserIdWithToken
+    ) => {
+      checkAuth(user);
       try {
         const game = await fetchById(args.gameApiId.toString(), args.mode);
         return game;
       } catch (error) {
         console.log(error);
       }
-    }
+    },
   },
 
   Mutation: {

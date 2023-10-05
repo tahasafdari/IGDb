@@ -45,6 +45,4 @@ type Mutation {
   deleteUser: TokenMessage
   updateUserAsAdmin(user: UserModify!, id: ID!): TokenMessage
   deleteUserAsAdmin(id: ID!): TokenMessage
-  addFavouriteGame(gameId: ID!): TokenMessage
-  addProfilePicture(image: String!): TokenMessage
 }
