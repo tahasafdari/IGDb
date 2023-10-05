@@ -3,6 +3,8 @@ interface User extends Document {
   user_name: string;
   email: string;
   password: string;
+  profile_image?: string;
+  favourite_games?: string[];
 }
 
 interface UserTest {
