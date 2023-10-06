@@ -2,6 +2,10 @@ import {Game} from '../interfaces/Game';
 import {VerboseGame} from '../interfaces/VerboseGame';
 import RawgToGame from './RawgToGame';
 
+/**
+ * @param id The RAWG API id of the game to search for.
+ * @returns a singular 'VerboseGame' object matching the query id. 
+ */
 const fetchById = async (id: string) => {
   const res = await fetch(
     `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`,
@@ -17,7 +21,10 @@ const fetchById = async (id: string) => {
   const game: VerboseGame = RawgToGame.formatTile(data);
   return game;
 };
-
+/**
+ * @param name a string containing the name of the game to search for.
+ * @returns an array of 'Game' objects matching the search query.
+ */
 const fetchByName = async (name: string) => {
   const res = await fetch(
     `${process.env.RAWG_API_URL}games?key=${process.env.RAWG_API_KEY}&search=${name}`,
