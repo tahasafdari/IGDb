@@ -6,32 +6,6 @@ type User {
   favourite_games: [ID]
 }
 
-type TokenMessage {
-  token: String
-  message: String!
-  user: User!
-}
-
-input Credentials {
-  email: String!
-  password: String!
-}
-
-input UserInput {
-  user_name: String!
-  email: String!
-  password: String!
-  profile_image: String
-}
-
-input UserModify {
-  user_name: String
-  email: String
-  password: String
-  profile_image: String
-  favourite_games: [ID]
-}
-
 type Query {
   users: [User]
   userById(id: ID!): User

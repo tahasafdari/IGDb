@@ -90,7 +90,7 @@ export default {
     ) => {
       checkAuth(user);
       try {
-        const game = await fetchById(args.gameApiId.toString(), args.mode);
+        const game = await fetchById(args.gameApiId.toString());
         return game;
       } catch (error) {
         console.log(error);
