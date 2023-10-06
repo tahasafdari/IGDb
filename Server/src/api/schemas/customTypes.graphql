@@ -1,0 +1,61 @@
+"custome types for Game:"
+
+type ExternalGame {
+title : String!
+gameApiId: Int!
+}
+
+type VerboseGame {
+internalId: ID
+title : String!
+gameApiId : Int!
+image: String!
+description: String!
+}
+
+input InputGame {
+  gameApiId: Int!
+}
+
+
+"Custome types for Review:"
+
+input InputReview {
+  text: String!
+  score: Float!
+  game: InputGame!
+}
+
+
+
+"Custom types for User:"
+
+type UserOfReview {
+  id: ID!
+  user_name: String!
+}
+type TokenMessage {
+  token: String
+  message: String!
+  user: User!
+}
+
+input Credentials {
+  email: String!
+  password: String!
+}
+
+input UserInput {
+  user_name: String!
+  email: String!
+  password: String!
+  profile_image: String
+}
+
+input UserModify {
+  user_name: String
+  email: String
+  password: String
+  profile_image: String
+  favourite_games: [ID]
+}

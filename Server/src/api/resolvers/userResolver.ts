@@ -11,7 +11,6 @@ export default {
       const users = await fetchData<AuthMessageResponse>(
         `${process.env.AUTH_URL}/users`
       );
-      console.log(users);
       return users;
     },
     userById: async (_: undefined, args: {id: string}) => {
@@ -42,7 +41,7 @@ export default {
   Mutation: {
     login: async (
       _: undefined,
-      args: {credentials: {username: string; password: string}}
+      args: {credentials: {email: string; password: string}}
     ) => {
       const options: RequestInit = {
         method: 'POST',
@@ -106,27 +105,6 @@ export default {
         options
       );
       return response;
-    },
-
-    addFavouriteGame: async (
-        _: undefined,
-        args: {gameId: string},
-        user: UserIdWithToken
-        ) => {
-            const options: RequestInit = {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`,
-                },
-                body: JSON.stringify(args.gameId),
-            };
-            const response = await fetchData<User>(
-                `${process.env.AUTH_URL}/users`,
-                options
-            );
-            console.log(response)
-            return response;
     },
 
     updateUserAsAdmin: async (

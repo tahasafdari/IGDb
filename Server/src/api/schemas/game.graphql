@@ -4,16 +4,13 @@ title : String!
 gameApiId : Int!
 }
 
-type ExternalGame {
-title : String!
-}
-
 type Query {
 games : [Game]!
 gameById(gameId : ID!) : Game!
 gameByTitle(title : String!) : Game!
 gameByApiId(gameApiId : Int!) : Game!
 externalGamesByName(name : String!) : [ExternalGame!]!
+externalGameByApiId(gameApiId : Int!) : VerboseGame!
 }
 
 type Mutation {
