@@ -1,19 +1,31 @@
+# Represents a game.
 type Game {
-id : ID!
-title : String!
-gameApiId : Int!
+  # The unique identifier of the game.
+  id: ID!
+  # The title of the game.
+  title: String!
+  # The unique identifier for the game from the game API.
+  gameApiId: Int!
 }
 
+# Query Type: Defines available queries for retrieving game data.
 type Query {
-games : [Game]!
-gameById(gameId : ID!) : Game!
-gameByTitle(title : String!) : Game!
-gameByApiId(gameApiId : Int!) : Game!
-externalGamesByName(name : String!) : [ExternalGame!]!
-externalGameByApiId(gameApiId : Int!) : VerboseGame!
+  # Retrieves a list of all games.
+  games: [Game]!
+  # Retrieves a game by its unique ID.
+  gameById(gameId: ID!): Game!
+  # Retrieves a game by its title.
+  gameByTitle(title: String!): Game!
+  # Retrieves a game by its unique identifier from the game API.
+  gameByApiId(gameApiId: Int!): Game!
+  # Retrieves external games by name.
+  externalGamesByName(name: String!): [ExternalGame!]!
+  # Retrieves a verbose game by its unique identifier from the game API.
+  externalGameByApiId(gameApiId: Int!): VerboseGame!
 }
 
+# Mutation Type: Defines available mutations for creating games.
 type Mutation {
-createGame(title : String!, gameApiId : Int!) : Game!
+  # Creates a new game and returns it.
+  createGame(title: String!, gameApiId: Int!): Game!
 }
-

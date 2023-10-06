@@ -1,23 +1,34 @@
 import {Game} from '../../interfaces/Game';
-import mongoose from 'mongoose';
+import mongoose, {Document, Schema, Model} from 'mongoose';
 
-const gameModel = new mongoose.Schema<Game>({
+/**
+ * Mongoose schema definition for the Game model.
+ */
+const gameSchema: Schema<Game & Document> = new mongoose.Schema<Game>({
   title: {
     type: String,
-    required: true,
-    unique: true,
+    required: true, // The title is required for a game.
+    unique: true, // Ensure that titles are unique.
   },
   gameApiId: {
     type: Number,
-    required: true,
-    unique: true,
+    required: true, // The gameApiId is required for a game.
+    unique: true, // Ensure that gameApiIds are unique.
   },
   description: {
-    type: String,
+    type: String, // Description is an optional field.
   },
   image: {
-    type: String,
+    type: String, // Image is an optional field.
   },
 });
 
-export default mongoose.model<Game>('Game', gameModel);
+/**
+ * Mongoose model for the Game collection.
+ */
+const GameModel: Model<Game & Document> = mongoose.model<Game>(
+  'Game',
+  gameSchema
+);
+
+export default GameModel;
