@@ -12,6 +12,12 @@ const gameModel = new mongoose.Schema<Game>({
     required: true,
     unique: true,
   },
+  description: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
 });
 
 export default mongoose.model<Game>('Game', gameModel);

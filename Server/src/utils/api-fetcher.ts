@@ -1,8 +1,8 @@
 import {Game} from '../interfaces/Game';
+import {VerboseGame} from '../interfaces/VerboseGame';
 import RawgToGame from './RawgToGame';
 
-const fetchById = async (id: string, mode: number) => {
-
+const fetchById = async (id: string) => {
   const res = await fetch(
     `${process.env.RAWG_API_URL}games/${id}?key=${process.env.RAWG_API_KEY}`,
     {
@@ -14,14 +14,8 @@ const fetchById = async (id: string, mode: number) => {
   );
   const data = await res.json();
 
-  switch (mode) {
-    case 0:
-      return RawgToGame.format(data);
-    case 1:
-      return RawgToGame.formatTile(data);
-    default:
-      return RawgToGame.format(data);
-  }
+  const game: VerboseGame = RawgToGame.formatTile(data);
+  return game;
 };
 
 const fetchByName = async (name: string) => {

@@ -5,6 +5,8 @@ import {Review} from '../../interfaces/Review';
 import {UserIdWithToken, UserOfReview} from '../../interfaces/User';
 import gameModel from '../models/gameModel';
 import checkAuth from '../../functions/checkAuth';
+import {fetchById} from '../../utils/api-fetcher';
+import {Game} from '../../interfaces/Game';
 
 export default {
   Query: {
@@ -66,6 +68,22 @@ export default {
       user: UserIdWithToken //context
     ) => {
       checkAuth(user);
+      const gameApiId = args.review.game.gameApiId;
+      const gameFromApi = await fetchById(gameApiId.toString());
+      if (!gameFromApi) {
+        throw new GraphQLError('Game not found', {
+          extensions: {code: 'NOT_FOUND'},
+        });
+      }
+      const gameInDb = await gameModel.findOne({
+        gameApiId: gameApiId,
+      });
+      args.review.game = gameInDb as Game;
+      if (!gameInDb) {
+        const game = new gameModel(gameFromApi);
+        await game.save();
+        args.review.game = game;
+      }
 
       if (!args.review.text || !args.review.score) {
         throw new GraphQLError('all the fields required', {
@@ -81,13 +99,7 @@ export default {
           extensions: {code: 'NOT_FOUND'},
         });
       }
-      const game = await gameModel.findById(args.review.game.id);
-      if (!game) {
-        throw new GraphQLError('Game not found', {
-          extensions: {code: 'NOT_FOUND'},
-        });
-      }
-      args.review.game = game;
+
       const review = new reviewModel(args.review);
       review.owner = owner;
       return await review.save();
@@ -105,7 +117,6 @@ export default {
           new: true,
         })
         .populate('owner game')) as unknown as Review;
-      console.log(updatedReview);
       return updatedReview;
     },
 
@@ -123,7 +134,6 @@ export default {
       const deletedReview = (await reviewModel
         .findByIdAndDelete(args.id)
         .populate('owner game')) as unknown as Review;
-      console.log(deletedReview);
       return deletedReview;
     },
   },
