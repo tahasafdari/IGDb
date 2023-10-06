@@ -1,22 +1,38 @@
+# User Type: Represents a user object.
 type User {
+  # A unique identifier for the user.
   id: ID!
+  # The user's username.
   user_name: String!
+  # The user's email address.
   email: String!
+  # The URL or path to the user's profile image.
   profile_image: String
+  # An array of game IDs representing the user's favorite games.
   favourite_games: [ID]
 }
 
 type Query {
+  # Retrieves a list of users.
   users: [User]
+  # Retrieves a user by their unique ID.
   userById(id: ID!): User
+  # Retrieves a message response typically used to check the validity of a token.
   checkToken: TokenMessage
 }
 
+# Mutation Type: Defines available mutations for modifying data.
 type Mutation {
+  # Performs user login and returns a token message.
   login(credentials: Credentials!): TokenMessage
+  # Registers a new user and returns a token message.
   register(user: UserInput!): TokenMessage
+  # Updates a user's information and returns a token message.
   updateUser(user: UserModify!): TokenMessage
+  # Deletes the authenticated user and returns a token message.
   deleteUser: TokenMessage
+  # Updates a user's information as an admin and returns a token message.
   updateUserAsAdmin(user: UserModify!, id: ID!): TokenMessage
+  # Deletes a user as an admin and returns a token message.
   deleteUserAsAdmin(id: ID!): TokenMessage
 }
