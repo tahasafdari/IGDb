@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Dashboard = (): React.JSX.Element => {
+const Dashboard = (): JSX.Element => {
   return (
     <div 
       className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center p-8 bg-cover z-10"
