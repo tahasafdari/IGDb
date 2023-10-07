@@ -46,13 +46,12 @@ function ResponsiveAppBar() {
           <TextField
             placeholder="Search"
             size="small"
-            variant="outlined" // <-- This
+            variant="outlined"
             sx={{
               marginRight: 1,
               backgroundColor: 'transparent',
-              borderRadius: '20px', // <-- And this
+              borderRadius: '20px',
               '& .MuiOutlinedInput-root': {
-                // Style the outline
                 '& fieldset': {
                   borderColor: 'black', // Border color
                 },
@@ -66,9 +65,7 @@ function ResponsiveAppBar() {
             }}
           />
 
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            {/* You may place a title here */}
-          </Typography>
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}></Typography>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -100,7 +97,6 @@ function ResponsiveAppBar() {
                       handleLogout()
                     } else {
                       handleCloseUserMenu()
-                      // Handle other settings clicks if necessary
                     }
                   }}
                 >
