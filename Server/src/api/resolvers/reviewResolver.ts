@@ -10,12 +10,25 @@ import {Game} from '../../interfaces/Game';
 
 export default {
   Query: {
+    /**
+     * Retrieve a list of reviews.
+     * @returns An array of reviews
+     */
     reviews: async () => {
       const reviews = reviewModel
         .find()
         .populate('game owner') as unknown as Review[];
       return reviews;
     },
+
+    /**
+     * Retrieve reviews by owner ID.
+     * @param _ Unused
+     * @param args Arguments containing ownerId
+     * @param user User with a valid token
+     * @returns An array of reviews by the owner
+     * @throws GraphQLError if the owner is not found
+     */
     reviewsByOwnerId: async (
       _: undefined,
       args: {ownerId: string},
@@ -25,7 +38,6 @@ export default {
       const owner = (await userModel
         .findById(args.ownerId)
         .select('-role -password -__v -email')) as unknown as UserOfReview;
-      console.log(owner);
       if (!owner) {
         throw new GraphQLError('User not found', {
           extensions: {code: 'NOT_FOUND'},
@@ -36,10 +48,17 @@ export default {
           owner: owner,
         })
         .populate('owner game') as unknown as Review[];
-      console.log(reviews);
       return reviews;
     },
 
+    /**
+     * Retrieve reviews by game ID.
+     * @param _ Unused
+     * @param args Arguments containing gameId
+     * @param user User with a valid token
+     * @returns An array of reviews for the game
+     * @throws GraphQLError if the game is not found
+     */
     reviewsByGameId: async (
       _: undefined,
       args: {gameId: string},
@@ -62,10 +81,18 @@ export default {
   },
 
   Mutation: {
+    /**
+     * Create a new review.
+     * @param _ Unused
+     * @param args Arguments containing the review
+     * @param user User with a valid token
+     * @returns The created review
+     * @throws GraphQLError if the game or user is not found, or if required fields are missing
+     */
     createReview: async (
       _: undefined,
       args: {review: Review},
-      user: UserIdWithToken //context
+      user: UserIdWithToken // Context
     ) => {
       checkAuth(user);
       const gameApiId = args.review.game.gameApiId;
@@ -86,7 +113,7 @@ export default {
       }
 
       if (!args.review.text || !args.review.score) {
-        throw new GraphQLError('all the fields required', {
+        throw new GraphQLError('All fields are required', {
           extensions: {code: 'NOT_FOUND'},
         });
       }
@@ -105,6 +132,14 @@ export default {
       return await review.save();
     },
 
+    /**
+     * Update an existing review.
+     * @param _ Unused
+     * @param args Arguments containing the review ID and fields to update
+     * @param user User with a valid token
+     * @returns The updated review
+     * @throws GraphQLError if the review is not found or if required fields are missing
+     */
     updateReview: async (_: undefined, args: Review, user: UserIdWithToken) => {
       checkAuth(user);
       if (!args.id) {
@@ -120,6 +155,14 @@ export default {
       return updatedReview;
     },
 
+    /**
+     * Delete an existing review.
+     * @param _ Unused
+     * @param args Arguments containing the review ID
+     * @param user User with a valid token
+     * @returns The deleted review
+     * @throws GraphQLError if the review is not found
+     */
     deleteReview: async (
       _: undefined,
       args: {id: string},

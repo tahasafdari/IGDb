@@ -1,23 +1,39 @@
+# Scalar for representing date and time values.
 scalar DateTime
 
+# Represents a review for a game.
 type Review {
+  # The unique identifier of the review.
   id: ID!
+  # The text content of the review.
   text: String!
+  # The user who owns the review.
   owner: UserOfReview!
+  # The score or rating given to the game in the review.
   score: Float!
+  # The date and time when the review was created.
   createdAt: DateTime!
+  # The game associated with the review.
   game: Game!
 }
-
+# Query Type: Defines available queries for retrieving review data.
 type Query {
+  # Retrieves a list of all reviews.
   reviews: [Review!]!
+  # Retrieves a review by its unique ID.
   reviewById(id: ID!): Review!
+  # Retrieves reviews by the owner's unique ID.
   reviewsByOwnerId(ownerId: ID!): [Review!]!
+  # Retrieves reviews by the game's unique ID.
   reviewsByGameId(gameId: ID!): [Review!]!
 }
 
+# Mutation Type: Defines available mutations for modifying review data.
 type Mutation {
+  # Creates a new review and returns it.
   createReview(review: InputReview!): Review!
+  # Updates an existing review and returns it.
   updateReview(id: ID!, text: String, score: Float): Review!
+  # Deletes a review by its unique ID and returns it.
   deleteReview(id: ID!): Review!
 }
