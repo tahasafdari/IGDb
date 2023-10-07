@@ -21,7 +21,7 @@ export default function Settings() {
       >
         Delete Account
       </Button>
-      <Button
+      {/* <Button
         variant="primary"
         py="20px"
         px="16px"
@@ -32,7 +32,7 @@ export default function Settings() {
         h="54px"
       >
         Save Changes
-      </Button>
+      </Button> */}
     </Card>
   );
 }
