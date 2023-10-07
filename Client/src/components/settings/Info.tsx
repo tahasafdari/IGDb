@@ -1,4 +1,3 @@
-'use client'
 // Chakra imports
 import * as React from 'react'
 import { Flex, FormControl, Text, useColorModeValue } from '@chakra-ui/react'
@@ -14,7 +13,7 @@ export default function Settings() {
   return (
     <FormControl>
       <Card>
-        <Flex direction="column" mb="40px">
+        <Flex direction="column" mt="20px" mb={'15px'}>
           <Text fontSize="xl" color={textColorPrimary} mb="6px" fontWeight="bold">
             Account Settings
           </Text>
@@ -32,20 +31,12 @@ export default function Settings() {
           />
           <InputField
             mb="10px"
+            me="30px"
             id="email"
             label="Email Address"
-            placeholder="hello@horizon-ui.com"
+            placeholder="hello@example.com"
           />
-          <InputField mb="10px" me="30px" id="first_name" label="First Name" placeholder="Adela" />
-          <InputField mb="20px" id="last_name" label="Last Name" placeholder="Parkson" />
         </SimpleGrid>
-        <InputField id="job" label="Job" placeholder="Web Developer" />
-        <TextField
-          id="about"
-          label="About Me"
-          minH="150px"
-          placeholder="Tell something about yourself in 150 characters!"
-        />
       </Card>
     </FormControl>
   )
