@@ -15,7 +15,7 @@ const Sidebar = ({ routes }: SidebarProps): JSX.Element => {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen z-20">
       <button
         onClick={toggleSidebar}
         className="absolute top-4 left-4 md:hidden z-50 p-2 rounded-md bg-gray-800 text-white"

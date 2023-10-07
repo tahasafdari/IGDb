@@ -1,5 +1,8 @@
 import { IRoute } from './types/navigation'
 import HomeIcon from '@mui/icons-material/Home';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 
 const routes: IRoute[] = [
     {
@@ -7,34 +10,21 @@ const routes: IRoute[] = [
         path : '/dashboard',
         icon : HomeIcon,
     } ,
-    {
-        name : 'Item1',
-        path : '/dashboard',
-        icon : HomeIcon,
+    {     
+        name : 'Games',
+        path : '/games',
+        icon : SportsEsportsIcon,
     } ,
     {
-        name : 'Item2',
-        path : '/dashboard',
-        icon : HomeIcon,
+        name : 'REVIEWS',
+        path : '/reviews',
+        icon : ReviewsIcon,
     } ,
     {
-        name : 'Item3',
-        path : '/dashboard',
-        icon : HomeIcon,
-    } ,
-    {
-        name : 'Item4',
-        path : '/dashboard',
-        icon : HomeIcon,
-    } ,
-    {
-        name : 'Item5',
-        path : '/dashboard',
-        icon : HomeIcon,
-    } ,
-
-
-
+        name : 'Top 10',
+        path : '/top10',
+        icon : AirlineStopsIcon,
+    } 
 
 ]
 

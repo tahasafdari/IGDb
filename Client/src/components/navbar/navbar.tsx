@@ -1,42 +1,75 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import TextField from '@mui/material/TextField'
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'My Games', 'Logout']
 
 function ResponsiveAppBar() {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('isAuthenticated')
+    handleCloseUserMenu()
+    window.location.href = '/sign-in'
+  }
 
   return (
-    <AppBar position="absolute" sx={{ width: '30%', backgroundColor: 'white', m: '15px', boxShadow: 'none' }}>
-      <Container maxWidth="xl" sx={{ margin: '0 auto' }} className={'border 1px solid black rounded-full shadow-xl'}>
+    <AppBar
+      position="absolute"
+      sx={{ width: '30%', backgroundColor: 'transparent', m: '15px', boxShadow: 'none' }}
+    >
+      <Container
+        maxWidth="xl"
+        sx={{ margin: '0 auto' }}
+        className={'border 1px solid black rounded-full shadow-xl'}
+      >
         <Toolbar disableGutters>
           <TextField
             placeholder="Search"
             size="small"
-            sx={{ marginRight: 1, border:'none', backgroundColor: '#f4f7fe'  }}
+            variant="outlined" // <-- This
+            sx={{
+              marginRight: 1,
+              backgroundColor: 'transparent',
+              borderRadius: '20px', // <-- And this
+              '& .MuiOutlinedInput-root': {
+                // Style the outline
+                '& fieldset': {
+                  borderColor: 'black', // Border color
+                },
+                '&:hover fieldset': {
+                  borderColor: 'black', // Border color when hovered
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'black', // Border color when the input is focused
+                },
+              },
+            }}
           />
+
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             {/* You may place a title here */}
           </Typography>
-          
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -60,8 +93,18 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem
+                  key={setting}
+                  onClick={() => {
+                    if (setting === 'Logout') {
+                      handleLogout()
+                    } else {
+                      handleCloseUserMenu()
+                      // Handle other settings clicks if necessary
+                    }
+                  }}
+                >
+                  {setting}
                 </MenuItem>
               ))}
             </Menu>
@@ -69,7 +112,7 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  )
 }
 
-export default ResponsiveAppBar;
+export default ResponsiveAppBar
