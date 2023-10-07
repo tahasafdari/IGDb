@@ -10,11 +10,13 @@ import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
+import { useRouter } from 'next/router'
 
 const settings = ['Profile', 'My Games', 'Logout']
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
+  const router = useRouter()
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -32,6 +34,8 @@ function ResponsiveAppBar() {
     window.location.href = '/sign-in'
   }
 
+  
+
   return (
     <AppBar
       position="absolute"
@@ -40,10 +44,10 @@ function ResponsiveAppBar() {
       <Container
         maxWidth="xl"
         sx={{ margin: '0 auto' }}
-        className={'border 1px solid black rounded-full shadow-xl'}
+        
       >
         <Toolbar disableGutters>
-          <TextField
+          {/* <TextField
             placeholder="Search"
             size="small"
             variant="outlined"
@@ -63,14 +67,14 @@ function ResponsiveAppBar() {
                 },
               },
             }}
-          />
+          /> */}
 
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}></Typography>
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1 } } ></Typography>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar className={'border 18px solid black rounded-full shadow-xl'} alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -95,6 +99,10 @@ function ResponsiveAppBar() {
                   onClick={() => {
                     if (setting === 'Logout') {
                       handleLogout()
+                    } else if (setting === 'Profile') {
+                      // 3. Navigate to /profile when "Profile" is clicked
+                      router.push('/profile');
+                      handleCloseUserMenu()
                     } else {
                       handleCloseUserMenu()
                     }
