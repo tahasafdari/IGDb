@@ -21,14 +21,8 @@ export default function Settings() {
         </Flex>
         <FormControl>
           <Flex flexDirection="column">
-            <InputField mb="25px" id="old" label="Old Password" placeholder="Old Password" />
-            <InputField mb="25px" id="new" label="New Password" placeholder="New Password" />
-            <InputField
-              mb="25px"
-              id="confirm"
-              label="New Password Confirmation"
-              placeholder="Confirm New Password"
-            />
+            <InputField mb={25} id="old" label="Old Password" placeholder="Old Password" type='password' />
+            <InputField mb={25} id="new" label="New Password" placeholder="New Password" type='password' />
           </Flex>
         </FormControl>
       </Card>
