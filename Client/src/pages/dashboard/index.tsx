@@ -13,9 +13,9 @@ const Dashboard = (): JSX.Element => {
       <div className="relative z-10 text-center">
         <div className="text-2xl font-bold mb-2 text-white">Explore the best games</div>
         <div className="text-xl mb-4 text-white">IGDB</div>
-        <div className="mb-4 text-white">Your additional text here</div>
+        <div className="mb-4 text-white">International Game database offers you the most accurate reviews of all the existing games.</div>
         <button className="bg-transparent text-white border border-white py-2 px-4 mb-8 rounded hover:bg-opacity-10 hover:bg-white transition">
-          Click Me
+          Learn More
         </button>
         <div className="flex justify-between w-3/4 mt-16 space-x-4 ml-64"> {/* Adjusted with `ml-32` */}
           {/* Images for demo */}
