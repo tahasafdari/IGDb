@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.myWhiteBox {
+    display: flex;
+    width: 900px;
+    height: 576px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    font-family: "Roboto Light", sans-serif;
+    font-size: 18px;
+}
+
+.mainTitle {
+    font-size: 23px;
+    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-family: "Oswald", sans-serif;
+}
+
+.miniTitle {
+    font-size: 18px;
+    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-family: "Oswald", sans-serif;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.contentContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.textContainer {
+    flex: 1;
+    padding: 20px;
+    text-align: justify;
+}
+
+.about-img {
+    margin-top: 80px;
+    object-fit: contain;
+}
+
+.imageContainer {
+    position: relative;
+    width: 40%;
+}
+
+.smallText {
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 8px;
+    font-size: 8px;
+    text-align: center;
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px;
+}
