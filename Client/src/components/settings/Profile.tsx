@@ -3,7 +3,7 @@ import Card from '@/components/card/Card';
 import { NextAvatar } from '@/components/image/Avatar';
 import { StaticImageData } from 'next/image';
 
-export default function Settings(props: { name: string; avatar: StaticImageData; banner: string }) {
+export default function Settings(props: { name: string; avatar: string; banner: string }) {
   const { name, avatar, banner } = props;
   const textColorPrimary = useColorModeValue('navy.700', 'white');
   const textColorSecondary = 'gray.500';
