@@ -47,12 +47,23 @@ export default function Settings(props: { name: string; avatar: StaticImageData;
           <Text color={textColorSecondary} fontSize="sm" fontWeight="500" lineHeight="100%" textAlign="center">
             User
           </Text>
-           <InputGroup mb="10px" >
-          <Input placeholder="Paste the URL of the avatar"  />
-          {/* <InputRightElement>
-            <Button onClick={() => handleURLChange(document.querySelector('input').value)}>Update from URL</Button>
-          </InputRightElement> */}
-        </InputGroup> 
+          <Flex justifyContent="center" mb="10px" align="center" mt={'15px'}>
+          <Input
+            placeholder="Paste the URL of avatar"
+            borderColor="black"
+            borderWidth="1px"
+            mr="1rem"  // A bit of margin for spacing between input and button
+            maxW="250px"  // Limit width to prevent it from taking the whole space
+          />
+          <Button
+            onClick={() => handleURLChange(document.querySelector('input').value)}
+            borderColor="black"
+            borderWidth="1px"
+            borderRadius="5px"
+          >
+            Update from URL
+          </Button>
+        </Flex>
 
         </Flex>
       </Card>
