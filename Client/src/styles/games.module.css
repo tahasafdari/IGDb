@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.searchBar {
+    border-radius: 30px;
+    background: rgba(217, 217, 217, 0.86);
+    width: 400px;
+    height: 26px;
+    display: flex;
+}
+
+.searchBar input {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0 0 0 10px;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: slategrey;
+}
+
+.searchTitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-family: Poppins, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.searchContainer {
+    position: absolute;
+    top: 50px;
+    left: 350px;
+    font-size: 18px;
+}
+
+.gamesContainer {
+    width: 65%;
+    left: 300px;
+    position: relative;
+    margin-top: 100px;
+}
+
+.gamesGrid {
+    border-radius: 30px;
+    border-collapse: separate;
+    padding: 20px;
+    margin: 10px;
+    transition: ease-in-out 0.2s;
+    min-width: 900px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap; /* Add this line to allow items to wrap to the next row */
+}
+
+.gameImage {
+    border: white 4px solid;
+    border-radius: 40px;
+    min-height: auto;
+    min-width: 250px;
+}
+
+.gameCard {
+    margin: 10px;
+    flex: 1; /* Allow the cards to take up equal space in the row */
+    max-width: calc(25% - 10px); /* Set max-width to 25% to ensure 4 items per row with margins */
+    transition: ease-in-out 0.2s;
+}
+
+.gameCard:hover {
+    cursor: pointer;
+    filter: brightness(1.4);
+    transform: translateY(-5px);
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .gamesGrid {
+        flex-direction: column; /* Change the flex direction to column for smaller screens */
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+
+    .gameCard {
+        max-width: 100%; /* Make each card take up 100% width in a column layout */
+    }
+
+    .gameImage {
+        max-width: 20px;
+    }
+
+    .gamesContainer {
+        width: 10%;
+        left: 0;
+        top: 38%;
+        margin-top: 20px;
+    }
+
+    .searchContainer {
+        top: 2%;
+        left: 20%;
+        max-width: 200px;
+    }
+
+    .searchBar {
+        width: 100%;
+    }
+}
