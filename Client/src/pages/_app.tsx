@@ -5,9 +5,15 @@ import 'tailwindcss/tailwind.css'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import ResponsiveAppBar from '@/components/navbar/navbar' // <-- import here
 import routes from '@/routes'
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
+  const client = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URLL,
+    cache: new InMemoryCache(),
+  });
+
   const { pathname } = router
 
   const isAuthPage = pathname === '/sign-in' || pathname === '/sign-up'

@@ -8,8 +8,29 @@ import Profile from '@/components/settings/Profile'
 
 import { useEffect, useState } from 'react'
 
+// import { useMutation } from '@apollo/client'
+// import UPDATE_USER1 from '@/graphql/mutations'
+
 export default function Settings() {
   const [user, setUser] = useState<User | null>(null)
+
+  // const [updateUser] = useMutation(UPDATE_USER1);
+  // const handleUpdate = async () => {
+  //   try {
+  //   const { data } = await updateUser({
+  //     variables: {
+  //       user_name: user?.user_name,
+  //       email: user?.email,
+  //       password: user?.password,
+  //       profile_image: user?.profile_image,
+  //     },
+  //   })
+  //   console.log(data)
+  // } catch (err) {
+  //   console.log(err)
+  // }
+  // }
+
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user') || 'null')
@@ -63,9 +84,7 @@ export default function Settings() {
             background: 'linear-gradient(17.46deg, #4A25E1 24.3%, #6B4AFF 78.4%)',
             color: 'white',
           }}
-          onClick={() => {
-            console.log(user)
-          }}
+          // onClick={handleUpdate}
         >
           Update
         </Button>
