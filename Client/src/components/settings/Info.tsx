@@ -5,11 +5,43 @@ import { SimpleGrid } from '@chakra-ui/react'
 import Card from '@/components/card/Card'
 import InputField from '@/components/fields/InputField'
 import TextField from '@/components/fields/TextField'
+import { useState } from 'react'
+import UPDATE_USER from '@/graphql/mutations'
+import { useMutation } from '@apollo/client'
+import { Button } from '@mui/material'
+import { UserModify } from '../interfaces/User'
 
 export default function Settings() {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('navy.700', 'white')
   const textColorSecondary = 'gray.500'
+  
+  
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+
+  const [updateUser] = useMutation(UPDATE_USER);
+  const handleUpdate = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const user: UserModify = { user_name: username, email: email }
+      console.log('Bearer ' + token)
+      const { data } = await updateUser({
+        variables: {
+          user: user
+        },
+        context: {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      })
+      console.log(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
   return (
     <FormControl>
       <Card>
@@ -28,6 +60,7 @@ export default function Settings() {
             id="username"
             label="Username"
             placeholder="@parkson.adela"
+            onChange={(e: any) => setUsername(e.target.value)}
           />
           <InputField
             mb="10px"
@@ -35,8 +68,10 @@ export default function Settings() {
             id="email"
             label="Email Address"
             placeholder="hello@example.com"
+            onChange={(e: any) => setEmail(e.target.value)}
           />
         </SimpleGrid>
+        <Button onClick={handleUpdate}>Update</Button>
       </Card>
     </FormControl>
   )

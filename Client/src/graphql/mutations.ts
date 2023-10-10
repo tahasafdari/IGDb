@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const UPDATE_USER1 = gql`
+const UPDATE_USER = gql`
     mutation UpdateUser($user: UserModify!) {
         updateUser(user: $user) {
             token
@@ -16,4 +16,4 @@ const UPDATE_USER1 = gql`
     }
 `;
 
-export default UPDATE_USER1;
+export default UPDATE_USER;

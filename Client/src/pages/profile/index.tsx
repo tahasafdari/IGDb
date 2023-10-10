@@ -5,32 +5,12 @@ import { Box, Flex, SimpleGrid, Button } from '@chakra-ui/react'
 import Info from '@/components/settings/Info'
 import Password from '@/components/settings/Password'
 import Profile from '@/components/settings/Profile'
-
 import { useEffect, useState } from 'react'
-
-// import { useMutation } from '@apollo/client'
-// import UPDATE_USER1 from '@/graphql/mutations'
+import { User } from '@/components/interfaces/User'
 
 export default function Settings() {
+
   const [user, setUser] = useState<User | null>(null)
-
-  // const [updateUser] = useMutation(UPDATE_USER1);
-  // const handleUpdate = async () => {
-  //   try {
-  //   const { data } = await updateUser({
-  //     variables: {
-  //       user_name: user?.user_name,
-  //       email: user?.email,
-  //       password: user?.password,
-  //       profile_image: user?.profile_image,
-  //     },
-  //   })
-  //   console.log(data)
-  // } catch (err) {
-  //   console.log(err)
-  // }
-  // }
-
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user') || 'null')
@@ -86,7 +66,7 @@ export default function Settings() {
           }}
           // onClick={handleUpdate}
         >
-          Update
+          Get User
         </Button>
       </SimpleGrid>
     </Box>
