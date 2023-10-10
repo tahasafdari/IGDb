@@ -23,7 +23,9 @@ const Sidebar = ({ routes }: SidebarProps): JSX.Element => {
         <MenuIcon />
       </button>
 
-      <div className={`fixed top-0 left-0 w-64 h-screen bg-gray-800 text-white shadow-lg transform transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+      <div className={`fixed top-0 left-0 w-64 h-screen bg-gray-800 text-white shadow-lg transform transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+      
+      >
         <div className="flex items-center justify-center py-6">
           <span className="text-2xl font-semibold">Your Logo</span>
         </div>
