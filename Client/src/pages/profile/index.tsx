@@ -5,10 +5,11 @@ import { Box, Flex, SimpleGrid, Button } from '@chakra-ui/react'
 import Info from '@/components/settings/Info'
 import Password from '@/components/settings/Password'
 import Profile from '@/components/settings/Profile'
-
 import { useEffect, useState } from 'react'
+import { User } from '@/components/interfaces/User'
 
 export default function Settings() {
+
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
@@ -63,11 +64,9 @@ export default function Settings() {
             background: 'linear-gradient(17.46deg, #4A25E1 24.3%, #6B4AFF 78.4%)',
             color: 'white',
           }}
-          onClick={() => {
-            console.log(user)
-          }}
+          // onClick={handleUpdate}
         >
-          Update
+          Get User
         </Button>
       </SimpleGrid>
     </Box>
