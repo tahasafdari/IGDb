@@ -8,8 +8,9 @@ interface User {
 }
 
 interface UserModify {
-    user_name: string;
-    email: string;
+    user_name?: string;
+    email?: string;
+    password?: string;
 }
 
 export  type {User, UserModify};
