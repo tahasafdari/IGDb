@@ -23,7 +23,7 @@ const ReviewInput = ({ onReviewChange, onSubmit } : ReviewInputProps) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center', gap: '20px', marginTop: '300px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center', gap: '20px', }}>
       <div style={{ width: '80%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <textarea 
           value={review}
@@ -44,7 +44,8 @@ const ReviewInput = ({ onReviewChange, onSubmit } : ReviewInputProps) => {
         />
         <SubmitButton onSubmit={onSubmit} />  {/* Place the SubmitButton here */}
       </div>
-      <Rating onRatingChange={handleRatingChange} />
+      <Rating value={rating} onRatingChange={handleRatingChange} />
+
     </div>
   );
 };
