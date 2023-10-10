@@ -1,37 +1,48 @@
-import React, { useState } from 'react'
-import type { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
-import 'tailwindcss/tailwind.css'
-import Sidebar from '@/components/Sidebar/Sidebar'
-import ResponsiveAppBar from '@/components/navbar/navbar' // <-- import here
-import routes from '@/routes'
+import React, { useState } from 'react';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import 'tailwindcss/tailwind.css';
+import Sidebar from '@/components/Sidebar/Sidebar';
+import ResponsiveAppBar from '@/components/navbar/navbar';
+import routes from '@/routes';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 function App({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  const { pathname } = router
-
-  const isAuthPage = pathname === '/sign-in' || pathname === '/sign-up'
-
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const router = useRouter();
+  const { pathname } = router;
+  const isAuthPage = pathname === '/sign-in' || pathname === '/sign-up';
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
-  }
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Create Apollo Client instance
+  const client = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+    cache: new InMemoryCache(),
+  });
 
   return (
-    <div className={`${!isAuthPage ? 'flex' : ''}`}>
-      {!isAuthPage && (
-        <>
-           {/* <-- Place here */}
-          <ResponsiveAppBar />
-          <Sidebar routes={routes} isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        </>
-      )}
-    <div className={`flex-grow ${!isAuthPage && 'md:pl-64'} ${isSidebarOpen ? 'pl-64 md:pl-0' : ''}`}>
-        <Component {...pageProps} />
+    <ApolloProvider client={client}> {/* Wrap your entire app with ApolloProvider */}
+      <div className={`${!isAuthPage ? 'flex' : ''}`}>
+        {!isAuthPage && (
+          <>
+            <ResponsiveAppBar />
+            <Sidebar routes={routes} isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+          </>
+        )}
+        <div className={`flex-grow ${!isAuthPage && 'md:pl-64'} ${isSidebarOpen ? 'pl-64 md:pl-0' : ''}`}>
+          <Component {...pageProps} />
+        </div>
       </div>
-    </div>
-  )
+    </ApolloProvider>
+  );
 }
 
-export default App
+export default App;
+
+
+
+
+

@@ -27,7 +27,7 @@ const Sidebar = ({ routes }: SidebarProps): JSX.Element => {
       
       >
         <div className="flex items-center justify-center py-6">
-          <span className="text-2xl font-semibold">Your Logo</span>
+          <span className="text-2xl font-semibold">IGDB</span>
         </div>
         <nav>
           <ul>
