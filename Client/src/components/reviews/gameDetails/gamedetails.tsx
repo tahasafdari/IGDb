@@ -1,5 +1,6 @@
 // components/GameDetails.tsx
 
+
 type GameDetailsProps = {
     title: string;
     releaseDate: string;
@@ -8,11 +9,14 @@ type GameDetailsProps = {
   };
   
   const GameDetails = ({ title, releaseDate, genre, coverImage }: GameDetailsProps) => (
-    <div style={{
+    <div  style={{
       display: 'flex',
       alignItems: 'center', 
-      padding: '120px 0',
-      justifyContent: 'center'
+      padding: '50px 0',
+      justifyContent: 'center',
+      color: 'white',
+      
+      
     }}>
       <div style={{
         marginRight: '30%',
@@ -22,9 +26,12 @@ type GameDetailsProps = {
         <p>Genre: {genre}</p>
       </div>
       <img src={coverImage} alt={`Cover for ${title}`} style={{
-        border: '2px solid white',
         borderRadius: '10px',
         padding: '10px',
+        minHeight: '150px',
+        maxHeight: '150px',
+        minWidth: '220px',
+        maxWidth: '220px',
       }} />
       
     </div>
