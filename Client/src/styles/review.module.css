@@ -1,0 +1,99 @@
+/* review.module.css */
+
+.container {
+    display: flex;
+    align-items: center;
+    padding: 50px 0;
+    justify-content: center;
+    color: white;
+  }
+  
+  .detailDiv {
+    margin-right: 30%;
+  }
+  
+  .coverImage {
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 150px;
+    max-height: 150px;
+    min-width: 220px;
+    max-width: 220px;
+  }
+  
+  .reviewContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .textAreaDiv {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .textArea {
+    flex: 1;
+    margin-bottom: 0px;
+    min-height: 10px;
+    max-height: 50px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+
+
+.userReviewsContainer {
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  .singleReview {
+    width: 60%;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    background-color: white;
+  }
+  
+  .profileInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profileImage {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+  
+  .ratingInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dateText {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  
