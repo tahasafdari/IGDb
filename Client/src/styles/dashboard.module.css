@@ -40,6 +40,20 @@
     justify-content: center;
 }
 
+.learnButton {
+    color: white;
+    transition: ease-in-out 0.2s;
+    border: white 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.learnButton:hover {
+    cursor: pointer;
+    color: rgba(198, 111, 218, 0.35);
+    border: rgba(198, 111, 218, 0.35) 1px solid;
+}
+
 @media (max-width: 768px) {
     .thumbnail {
         width: 65%;
