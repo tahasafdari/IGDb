@@ -45,7 +45,7 @@ function ReviewPage() {
     >
       <GameDetails {...gameDetails} />
       <UserReviews reviews={userReviews} />
-      <ReviewInput onReviewChange={setUserReview} />
+      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} />
     </div>
   );
 }

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Rating from '../rating/Rating';
 import SubmitButton from '../submitButton/submitButton';
+import styles from '@/styles/review.module.css'
+
 type ReviewInputProps = {
   onReviewChange: (review: string, rating: number) => void;
   onSubmit: () => void;  
@@ -23,29 +25,16 @@ const ReviewInput = ({ onReviewChange, onSubmit } : ReviewInputProps) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center', gap: '20px', }}>
-      <div style={{ width: '80%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className={styles.reviewContainer}>
+      <div className={styles.textAreaDiv}>
         <textarea 
           value={review}
           onChange={handleTextChange}
-          style={{
-            flex: 1,
-            marginBottom: '0px',
-            minHeight: '10px',
-            maxHeight: '50px',
-            padding: '10px',
-            marginRight: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-            resize: 'vertical',
-            fontFamily: 'Arial, sans-serif',
-            fontSize: '16px'
-          }}
+          className={styles.textArea}
         />
-        <SubmitButton onSubmit={onSubmit} />  {/* Place the SubmitButton here */}
+        <SubmitButton onSubmit={onSubmit} />
       </div>
       <Rating value={rating} onRatingChange={handleRatingChange} />
-
     </div>
   );
 };
