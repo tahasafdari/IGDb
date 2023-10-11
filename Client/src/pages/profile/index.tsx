@@ -7,10 +7,21 @@ import Password from '@/components/settings/Password'
 import Profile from '@/components/settings/Profile'
 import { useEffect, useState } from 'react'
 import { User } from '@/components/interfaces/User'
+import { useQuery } from '@apollo/client'
+import USER_BY_ID from '@/graphql/queries'
 
 export default function Settings() {
-
   const [user, setUser] = useState<User | null>(null)
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+
+  const { data, loading, error } = useQuery(USER_BY_ID, {
+    variables: { id: user?.id },
+    context: {
+      headers: {
+        Authorization: `Bearer ${token || ''}`,
+      },
+    },
+  })
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user') || 'null')
@@ -27,8 +38,8 @@ export default function Settings() {
         <Flex direction="column">
           {user && (
             <Profile
-              name={user.user_name}
-              avatar={user.profile_image}
+              name={data?.userById.user_name}
+              avatar={data ? data.userById.profile_image : user.profile_image}
               banner={'linear-gradient(15.46deg, #4A25E1 26.3%, #7B5AFF 86.4%)'}
             />
           )}
@@ -49,7 +60,7 @@ export default function Settings() {
             <Password />
           </Box>
         </Flex>
-        <Button
+        {/* <Button
           mt={4}
           mx="auto" // Center the button horizontally
           borderColor="black"
@@ -64,10 +75,10 @@ export default function Settings() {
             background: 'linear-gradient(17.46deg, #4A25E1 24.3%, #6B4AFF 78.4%)',
             color: 'white',
           }}
-          // onClick={handleUpdate}
+           onClick={()=>console.log(data.userById)}
         >
           Get User
-        </Button>
+        </Button> */}
       </SimpleGrid>
     </Box>
   )
