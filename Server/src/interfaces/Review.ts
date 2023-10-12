@@ -22,4 +22,12 @@ interface Review extends Document {
   game: Game;
 }
 
-export {Review};
+interface ReviewTest {
+  _id?: string;
+  text?: string;
+  owner?: UserOfReview;
+  score?: number;
+  createdAt?: Date;
+  game?: Game;
+}
+export {Review, ReviewTest};
