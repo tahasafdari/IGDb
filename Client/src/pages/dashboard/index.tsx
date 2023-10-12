@@ -26,7 +26,7 @@ const Dashboard = (): JSX.Element => {
         <div className={styles.titleIGDB}>IGDB</div>
         </div>
         <div className="mb-4 text-white">International Game database offers you the most accurate reviews of all the existing games.</div>
-        <button onClick={navigateToAbout} className="bg-transparent text-white border border-white py-2 px-4 mb-8 rounded hover:bg-opacity-10 hover:bg-white transition">
+        <button onClick={navigateToAbout} className={styles.learnButton}>
           Learn More
         </button>
         <div className={styles.thumbnailContainer}>

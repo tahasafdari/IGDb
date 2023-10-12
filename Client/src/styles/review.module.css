@@ -7,11 +7,11 @@
     justify-content: center;
     color: white;
   }
-  
+
   .detailDiv {
     margin-right: 30%;
   }
-  
+
   .coverImage {
     border-radius: 10px;
     padding: 10px;
@@ -20,31 +20,31 @@
     min-width: 220px;
     max-width: 220px;
   }
-  
+
   .reviewContainer {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
     gap: 20px;
   }
-  
+
   .textAreaDiv {
     width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .textArea {
     flex: 1;
-    margin-bottom: 0px;
-    min-height: 10px;
-    max-height: 50px;
-    padding: 10px;
+    margin-top: 10px;
+    min-height: 30px;
+    max-height: 30px;
+    padding: 3px;
     margin-right: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    resize: vertical;
+    resize: none;
     font-family: Arial, sans-serif;
     font-size: 16px;
   }
@@ -59,20 +59,34 @@
     gap: 2rem;
     border-radius: 0.5rem;
   }
-  
+
   .singleReview {
-    width: 60%;
     margin-bottom: 0.5rem;
     padding: 0.5rem;
-    border: 1px solid #ccc;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: black;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.75);
+    width: 400px;
+    transition: ease-in-out 0.3s;
   }
-  
+
+  .singleReview:hover {
+    background-color: rgb(255, 255, 255);
+  }
+
+.singleReview:nth-child(even) {
+  margin-left: auto; /* push even-indexed reviews to the right */
+  margin-right: 30px; /* reset margin-right for even-indexed reviews */
+}
+
+.singleReview:nth-child(odd) {
+  margin-left: 30px; /* reset margin-left for odd-indexed reviews */
+  margin-right: auto; /* push odd-indexed reviews to the left */
+}
+
   .profileInfo {
     display: flex;
     justify-content: space-between;
@@ -80,20 +94,78 @@
     width: 100%;
     margin-bottom: 0.5rem;
   }
-  
+
   .profileImage {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
   }
-  
+
   .ratingInfo {
     display: flex;
     align-items: center;
   }
-  
+
   .dateText {
     font-size: 0.875rem;
     margin-bottom: 0.25rem;
   }
-  
+
+  /* small screens*/
+    @media (max-width: 768px) {
+        .detailDiv {
+        margin-right: 0;
+          margin-left: 20px;
+        margin-bottom: 20px;
+        }
+
+        .coverImage {
+        margin-bottom: 20px;
+        }
+
+      .container {
+        padding-top: 60px !important;
+        padding-bottom: 5px !important;
+      }
+
+      .singleReview:nth-child(even) {
+        margin-left: auto; /* push even-indexed reviews to the right */
+        margin-right: 30px !important; /* reset margin-right for even-indexed reviews */
+        max-width: 300px;
+      }
+
+      .singleReview:nth-child(odd) {
+        margin-left: 30px !important; /* reset margin-left for odd-indexed reviews */
+        margin-right: auto; /* push odd-indexed reviews to the left */
+        max-width: 300px;
+      }
+      .userReviewsContainer {
+        max-height: 350px;
+      }
+    }
+/* wide screens */
+@media (min-width: 1200px) {
+  .singleReview:nth-child(even) {
+    margin-left: auto; /* push even-indexed reviews to the right */
+    margin-right: 800px !important; /* reset margin-right for even-indexed reviews */
+    max-width: 400px;
+  }
+
+  .singleReview:nth-child(odd) {
+    margin-left: 800px !important; /* reset margin-left for odd-indexed reviews */
+    margin-right: auto; /* push odd-indexed reviews to the left */
+    max-width: 400px;
+  }
+
+  .textAreaDiv {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .container {
+    margin-left: 400px;
+    margin-right: 400px;
+  }
+}

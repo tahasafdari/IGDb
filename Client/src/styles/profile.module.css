@@ -1,0 +1,53 @@
+
+.infoBox {
+    background-image: linear-gradient(180deg, rgba(236, 161, 255, 0.46) 0%, rgba(222, 187, 255, 0.46) 53.13%, rgba(193, 244, 255, 0.46) 100%);
+    border-radius: 20px;
+    padding: 10px;
+    min-width: 400px;
+}
+
+.passwordBox {
+    background-image: linear-gradient(180deg, rgba(236, 161, 255, 0.46) 0%, rgba(222, 187, 255, 0.46) 53.13%, rgba(193, 244, 255, 0.46) 100%);
+    border-radius: 20px;
+    padding: 10px;
+    min-width: 400px;
+}
+
+.topCenter {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profileImageContainer {
+    background-image: linear-gradient(180deg, rgba(236, 161, 255, 0.46) 0%, rgba(222, 187, 255, 0.46) 53.13%, rgba(193, 244, 255, 0.46) 100%);
+    border-radius: 20px;
+    padding: 10px;
+    max-width: 400px;
+    max-height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+}
+
+/* small screens */
+@media (max-width: 768px) {
+    .infoBox{
+       display: none;
+    }
+
+    .passwordBox{
+       bottom: 30px;
+        position: fixed;
+        min-width: 0;
+        max-height: 320px;
+    }
+
+    .profileImageContainer {
+        max-width: 340px;
+        max-height: 290px;
+        position: fixed;
+        top: 10px;
+    }
+}
