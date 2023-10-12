@@ -28,7 +28,10 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    console.log("button clicked");
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     

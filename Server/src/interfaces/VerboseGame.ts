@@ -11,6 +11,8 @@ interface VerboseGame {
   // the RAWG API id of the game.
   rating: number;
   // the rating of the game.
+  description: string;
+  // the description of the game.
 }
 
 export {VerboseGame};

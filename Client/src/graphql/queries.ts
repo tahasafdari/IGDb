@@ -10,8 +10,16 @@ const USER_BY_ID = gql`
       favourite_games
     }
   }
-`;
+`
 
-export default USER_BY_ID;
+const EXTERNAL_GAMES_BY_NAME = gql`
+  query ExternalGamesByName($name: String!) {
+    externalGamesByName(name: $name) {
+      title
+      image
+      gameApiId
+    }
+  }
+`
 
-
+export { USER_BY_ID, EXTERNAL_GAMES_BY_NAME }
