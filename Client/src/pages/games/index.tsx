@@ -11,15 +11,16 @@ interface GameCardProps {
 }
 
 const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
-
+    const Router = useRouter()
     function redirect() {
         console.log("redirecting");
-        const Router = useRouter()
-        Router.push(`/review`)
+        localStorage.setItem('gameId', ID)
+        Router.push(`/reviews`)
     }
 
     return (
-        <div className={styles.gameCard} onClick={e => redirect}>
+        <div className={styles.gameCard} onClick={redirect}>
+            <p>{ID}</p>
             <img src={imageUrl} className={styles.gameImage} id={ID} />
         </div>
     );
