@@ -13,14 +13,13 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
     const Router = useRouter()
     function redirect() {
-        console.log("redirecting");
+        console.log(`redirecting to: ${ID}`);
         localStorage.setItem('gameId', ID)
         Router.push(`/reviews`)
     }
 
     return (
         <div className={styles.gameCard} onClick={redirect}>
-            <p>{ID}</p>
             <img src={imageUrl} className={styles.gameImage} id={ID} />
         </div>
     );
@@ -83,9 +82,7 @@ export default function Games(): JSX.Element {
             <div className={styles.content}>
                 <div className={styles.searchContainer}>
                     <div className={styles.searchTitle}>Search for games:</div>
-                    <div className={styles.searchBar}>
-                        <input type="text" placeholder="Search..." onChange={e => setTerm(e.target.value)}/>
-                    </div>
+                        <input className={styles.searchBar} type="text" placeholder="Search..." onChange={e => setTerm(e.target.value)}/>
                 </div>
                 <div className={styles.gamesContainer}>
                     {/* grid of games */}
