@@ -1,6 +1,7 @@
 import checkAuth from '../../functions/checkAuth';
 import {Game} from '../../interfaces/Game';
 import {UserIdWithToken} from '../../interfaces/User';
+import {VerboseGame} from '../../interfaces/VerboseGame';
 import {fetchById, fetchByName} from '../../utils/api-fetcher';
 import gameModel from '../models/gameModel';
 import {GraphQLError} from 'graphql';
@@ -108,7 +109,7 @@ export default {
     ) => {
       checkAuth(user);
       try {
-        const games: Game[] = await fetchByName(args.name);
+        const games: VerboseGame[] = await fetchByName(args.name);
         return games;
       } catch (error) {
         console.log(error);

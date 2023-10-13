@@ -1,46 +1,69 @@
-import React from 'react';
 import styles from '../../styles/games.module.css';
+import { EXTERNAL_GAMES_BY_NAME } from '../../graphql/queries';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { isPropertyAccessOrQualifiedName } from 'typescript';
+import { useRouter } from 'next/router';
 
 interface GameCardProps {
     imageUrl: string;
+    ID: string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({imageUrl }) => {
+const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
+    const Router = useRouter()
+    function redirect() {
+        localStorage.setItem('gameId', ID)
+        console.log(`gameId saved to localStorage: ${localStorage.getItem('gameId')}`);
+        Router.push(`/reviews`)
+    }
+
     return (
-        <div className={styles.gameCard}>
-            <img src={imageUrl} className={styles.gameImage} />
+        <div className={styles.gameCard} onClick={redirect}>
+            <img src={imageUrl} className={styles.gameImage} id={ID} />
         </div>
     );
 };
 
-const GamesGrid: React.FC = () => {
-    const gameCardsData = [
-        { imageUrl: 'https://cdn2.unrealengine.com/social-image-chapter4-s3-3840x2160-d35912cc25ad.jpg' },
-        { imageUrl: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000029237/16af19f777a4f7f935fa0d18ed49f5c32b3571b8a94e8c3af0987e9211526e7e' },
-        { imageUrl: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota2_social.jpg' },
-        { imageUrl: 'https://images.squarespace-cdn.com/content/v1/5c4f9c40f8370a0dd9949a42/1597841443616-RGS0UPYMB6CTB10X3ZGA/halo+2+ban.jpg?format=2500w' },
-        { imageUrl: 'https://qmgames.b-cdn.net/wp-content/uploads/2023/09/1318376.jpeg' },
-        { imageUrl: 'https://cdn1.epicgames.com/ark/offer/EGS_ARKSurvivalEvolved_StudioWildcard_S1-2560x1440-c316afb7c33a9dfb892eef6b99169e43.jpg' },
-        { imageUrl: 'https://gaming-cdn.com/images/products/506/orig/hearthstone-heroes-of-warcraft-5x-booster-pack-pc-game-battle-net-europe-cover.jpg?v=1674143405' },
-        { imageUrl: 'https://assets2.ignimgs.com/2014/02/14/wow-boss-compilation-wallpaperjpg-dc3b63.jpg?width=1280' },
-        { imageUrl: 'https://imageio.forbes.com/specials-images/imageserve/63424d27fec9cfc1c8de06ab/FIFA-23/960x0.jpg?format=jpg&width=960' },
-        { imageUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/1716740/capsule_616x353.jpg?t=1696622369' },
-        { imageUrl: 'https://image.api.playstation.com/vulcan/ap/rnd/202306/2400/ac505d57a46e24dd96712263d89a150cb443af288c025ff2.jpg' },
-        { imageUrl: 'https://dotesports.com/wp-content/uploads/2019/09/12195522/league-of-legends.jpg' },
-        { imageUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1632930565' },
-        { imageUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg?t=1632930565' },
-        { imageUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/252950/header.jpg?t=1632930565' },
-        { imageUrl: 'https://cdn.cloudflare.steamstatic.com/steam/apps/945360/header.jpg?t=1632930565' },
-    ];
+interface GamesGridProps {
+    term: string;
+}
 
-    const gameCards = gameCardsData.map((data, index) => (
-        <GameCard key={index} imageUrl={data.imageUrl} />
+const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
+    const {data, error, loading} = useQuery(EXTERNAL_GAMES_BY_NAME, {
+        variables: {name: term},
+        context: {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        }
+    });
+
+    if (error) {
+        console.log(error);
+        return <p>Error :c</p>;
+    }
+
+    if (loading) return <p>Loading...</p>;
+
+    const info = data.externalGamesByName;
+    
+    const gameCards = info.map((data: any, index: number) => (
+        <GameCard key={index} imageUrl={data.image} ID = {data.gameApiId} />
     ));
 
     return <div className={styles.gamesGrid}>{gameCards}</div>;
 };
 
-const Games = (): JSX.Element => {
+export default function Games(): JSX.Element {
+    const [term, setTerm] = useState('');
+
+    if (typeof localStorage.getItem('token') == undefined) {
+        const Router = useRouter()
+        alert('Log in, dumbass')
+        Router.push('/sign-in')
+    }
+
     return (
         <div
             className="fixed top-0 left-0 w-full h-screen flex flex-col justify-center p-8 bg-cover z-10"
@@ -55,17 +78,13 @@ const Games = (): JSX.Element => {
             <div className={styles.content}>
                 <div className={styles.searchContainer}>
                     <div className={styles.searchTitle}>Search for games:</div>
-                    <div className={styles.searchBar}>
-                        <input type="text" placeholder="Search..." />
-                    </div>
+                        <input className={styles.searchBar} type="text" placeholder="Search..." onChange={e => setTerm(e.target.value)}/>
                 </div>
                 <div className={styles.gamesContainer}>
                     {/* grid of games */}
-                    <GamesGrid />
+                    <GamesGrid term={term} />
                 </div>
             </div>
         </div>
     );
 };
-
-export default Games;
