@@ -15,4 +15,26 @@ interface Game extends Document {
   image: string;
 }
 
-export {Game};
+/**
+ * Represents a game object with optional properties.
+ */
+interface GameTest {
+  /**
+   * The title of the game.
+   */
+  title?: string;
+  /**
+   * The unique ID of the game in the game API.
+   */
+  gameApiId?: number;
+  /**
+   * The description of the game.
+   */
+  description?: string;
+  /**
+   * The URL of the image associated with the game.
+   */
+  image?: string;
+}
+
+export {Game, GameTest};

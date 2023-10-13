@@ -15,10 +15,18 @@ import LoginMessageResponse from '../src/interfaces/LoginMessageResponse';
 import randomstring from 'randomstring';
 require('dotenv').config();
 import jwt from 'jsonwebtoken';
+import {
+  deleteReview,
+  getReviewsByOwnerId,
+  getReviews,
+  postReview,
+  updateReview,
+  getReviewsByGameId,
+} from './reviewFunctions';
+import {ReviewTest} from '../src/interfaces/Review';
 
 describe('Testing graphql api', () => {
   beforeAll(async () => {
-    console.log(process.env.DATABASE_URL);
     await mongoose.connect(process.env.DATABASE_URL as string);
   });
 
@@ -88,6 +96,48 @@ describe('Testing graphql api', () => {
 
   it('should update user', async () => {
     await putUser(app, userData.token!);
+  });
+
+  let reviewData: ReviewTest;
+
+  const testReview: ReviewTest = {
+    text: 'Test review text',
+    score: 4.5,
+    game: {
+      gameApiId: 52928,
+    },
+  };
+
+  it('should create a new review', async () => {
+    reviewData = await postReview(app, testReview, userData.token!);
+  });
+
+  it('should return array of reviews', async () => {
+    await getReviews(app, userData.token!);
+  });
+
+  it('should return reviews by OwnerId', async () => {
+    await getReviewsByOwnerId(app, userData.user.id!, userData.token!);
+  });
+
+  it('should update the review', async () => {
+    const updatedText = 'Updated review text';
+    const updatedScore = 4.8;
+    await updateReview(
+      app,
+      reviewData.id!,
+      updatedText,
+      updatedScore,
+      userData.token!
+    );
+  });
+
+  it('should return array of reviews by GameId', async () => {
+    console.log('My game id', reviewData.game?.id);
+    await getReviewsByGameId(app, reviewData.game?.id, userData.token!);
+  });
+  it('should delete the review', async () => {
+    await deleteReview(app, reviewData.id!, userData.token!);
   });
 
   it('should delete current user', async () => {

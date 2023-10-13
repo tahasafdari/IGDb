@@ -23,11 +23,11 @@ interface Review extends Document {
 }
 
 interface ReviewTest {
-  _id?: string;
+  id?: string;
   text?: string;
   owner?: UserOfReview;
   score?: number;
   createdAt?: Date;
-  game?: Game;
+  game?: Game | {gameApiId: number; id?: Types.ObjectId};
 }
 export {Review, ReviewTest};
