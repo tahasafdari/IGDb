@@ -8,7 +8,7 @@ import Profile from '@/components/settings/Profile'
 import { useEffect, useState } from 'react'
 import { User } from '@/components/interfaces/User'
 import { useQuery } from '@apollo/client'
-import USER_BY_ID from '@/graphql/queries'
+import {USER_BY_ID} from '@/graphql/queries'
 import styles from '../../styles/profile.module.css'
 
 export default function Settings() {

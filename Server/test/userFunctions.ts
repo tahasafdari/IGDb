@@ -6,6 +6,11 @@ import ErrorResponse from '../src/interfaces/ErrorResponse';
 import LoginMessageResponse from '../src/interfaces/LoginMessageResponse';
 import randomstring from 'randomstring';
 
+/**
+ * Retrieves a list of users from the server.
+ * @param url - The URL to retrieve the users from.
+ * @returns A Promise that resolves with an array of UserTest objects.
+ */
 const getUsers = (url: string | Function): Promise<UserTest[]> => {
   return new Promise((resolve, reject) => {
     request(url)
@@ -31,6 +36,12 @@ const getUsers = (url: string | Function): Promise<UserTest[]> => {
   });
 };
 
+/**
+ * Retrieves a user by their ID.
+ * @param url - The URL of the GraphQL API.
+ * @param id - The ID of the user to retrieve.
+ * @returns A Promise that resolves to the retrieved user.
+ */
 const getUserById = (url: string | Function, id: string): Promise<UserTest> => {
   return new Promise((resolve, reject) => {
     request(url)
@@ -66,6 +77,12 @@ const getUserById = (url: string | Function, id: string): Promise<UserTest> => {
   });
 };
 
+/**
+ * Makes a POST request to register a new user.
+ * @param url - The URL to make the request to.
+ * @param user - The user object to register.
+ * @returns A Promise that resolves to a LoginMessageResponse object.
+ */
 const postUser = (
   url: string | Function,
   user: UserTest
@@ -109,6 +126,12 @@ const postUser = (
   });
 };
 
+/**
+ * Logs in a user by sending a GraphQL mutation to the server with the user's credentials.
+ * @param url - The URL to send the GraphQL mutation to.
+ * @param user - The user's credentials.
+ * @returns A Promise that resolves to a LoginMessageResponse object containing the login message, token, and user information.
+ */
 const loginUser = (
   url: string | Function,
   user: UserTest
@@ -154,6 +177,12 @@ const loginUser = (
   });
 };
 
+/**
+ * Deletes a user.
+ * @param url - The URL of the server.
+ * @param token - The authorization token for the user.
+ * @returns A Promise that resolves to an ErrorResponse object.
+ */
 const deleteUser = (
   url: string | Function,
   token: string
@@ -187,6 +216,13 @@ const deleteUser = (
   });
 };
 
+/**
+ * Deletes a user as an admin.
+ * @param url - The URL to send the request to.
+ * @param id - The ID of the user to delete.
+ * @param token - The authorization token.
+ * @returns A Promise that resolves to an ErrorResponse object.
+ */
 const adminDeleteUser = (
   url: string | Function,
   id: string,
@@ -220,6 +256,12 @@ const adminDeleteUser = (
   });
 };
 
+/**
+ * Updates a user.
+ * @param url - The URL to send the request to.
+ * @param token - The authorization token to include in the request header.
+ * @returns A Promise that resolves to an ErrorResponse object.
+ */
 const putUser = (
   url: string | Function,
   token: string

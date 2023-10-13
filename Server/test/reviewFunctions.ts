@@ -4,6 +4,12 @@ import expect from 'expect';
 import {ReviewTest} from '../src/interfaces/Review';
 import ErrorResponse from '../src/interfaces/ErrorResponse';
 
+/**
+ * Retrieves an array of reviews from the specified URL using the provided token.
+ * @param url - The URL to retrieve the reviews from.
+ * @param token - The token to use for authorization.
+ * @returns A promise that resolves to an array of ReviewTest objects.
+ */
 const getReviews = (
   url: string | Function,
   token: string
@@ -38,6 +44,13 @@ const getReviews = (
   });
 };
 
+/**
+ * Retrieves reviews by owner ID from the specified URL using the provided token.
+ * @param url - The URL to send the request to.
+ * @param idOFOwner - The ID of the owner to retrieve reviews for.
+ * @param token - The token to use for authorization.
+ * @returns A Promise that resolves to an array of ReviewTest objects.
+ */
 const getReviewsByOwnerId = (
   url: string | Function,
   idOFOwner: string,
@@ -92,6 +105,13 @@ const getReviewsByOwnerId = (
   });
 };
 
+/**
+ * Retrieves reviews for a game with the given ID.
+ * @param url - The URL of the server.
+ * @param idOFGame - The ID of the game to retrieve reviews for.
+ * @param token - The authorization token for the request.
+ * @returns A promise that resolves to an array of reviews for the game.
+ */
 const getReviewsByGameId = (
   url: string | Function,
   idOFGame: string,
@@ -142,6 +162,13 @@ const getReviewsByGameId = (
   });
 };
 
+/**
+ * Sends a POST request to create a new review using the provided review data and authorization token.
+ * @param url - The URL or function to send the request to.
+ * @param review - The review data to create the new review.
+ * @param token - The authorization token to include in the request header.
+ * @returns A Promise that resolves with the created review data.
+ */
 const postReview = (
   url: string | Function,
   review: ReviewTest,
@@ -191,6 +218,15 @@ const postReview = (
   });
 };
 
+/**
+ * Updates a review with the given ID, text and score.
+ * @param url - The URL of the server.
+ * @param id - The ID of the review to update.
+ * @param text - The new text of the review.
+ * @param score - The new score of the review.
+ * @param token - The authentication token.
+ * @returns A Promise that resolves to the updated review.
+ */
 const updateReview = (
   url: string | Function,
   id: string,
@@ -240,6 +276,13 @@ const updateReview = (
   });
 };
 
+/**
+ * Deletes a review with the given ID from the server.
+ * @param url - The URL of the server or a function that returns the URL.
+ * @param id - The ID of the review to delete.
+ * @param token - The authorization token to use for the request.
+ * @returns A Promise that resolves with the deleted review data or rejects with an error response.
+ */
 const deleteReview = (
   url: string | Function,
   id: string,

@@ -13,7 +13,9 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
     const Router = useRouter()
     function redirect() {
+        if(typeof window !== 'undefined'){
         localStorage.setItem('gameId', ID)
+        }
         console.log(`gameId saved to localStorage: ${localStorage.getItem('gameId')}`);
         Router.push(`/reviews`)
     }
@@ -63,6 +65,7 @@ export default function Games(): JSX.Element {
         alert('Log in, dumbass')
         Router.push('/sign-in')
     }
+
 
     return (
         <div
