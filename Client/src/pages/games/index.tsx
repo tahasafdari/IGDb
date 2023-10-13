@@ -13,8 +13,8 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
     const Router = useRouter()
     function redirect() {
-        console.log(`redirecting to: ${ID}`);
         localStorage.setItem('gameId', ID)
+        console.log(`gameId saved to localStorage: ${localStorage.getItem('gameId')}`);
         Router.push(`/reviews`)
     }
 
