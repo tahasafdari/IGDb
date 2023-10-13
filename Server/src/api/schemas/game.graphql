@@ -19,7 +19,7 @@ type Query {
   # Retrieves a game by its unique identifier from the game API.
   gameByApiId(gameApiId: Int!): Game!
   # Retrieves external games by name.
-  externalGamesByName(name: String!): [ExternalGame!]!
+  externalGamesByName(name: String!): [VerboseGame]!
   # Retrieves a verbose game by its unique identifier from the game API.
   externalGameByApiId(gameApiId: Int!): VerboseGame!
 }
