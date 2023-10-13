@@ -11,7 +11,9 @@ const getUsers = (url: string | Function): Promise<UserTest[]> => {
     request(url)
       .post('/graphql')
       .set('Content-Type', 'application/json')
-      .send({query: '{ users { id user_name email } }'})
+      .send({
+        query: '{ users { id user_name email profile_image favourite_games} }',
+      })
       .expect(200, (err, response) => {
         if (err) {
           reject(err);
@@ -21,6 +23,8 @@ const getUsers = (url: string | Function): Promise<UserTest[]> => {
           expect(users[0]).toHaveProperty('id');
           expect(users[0]).toHaveProperty('user_name');
           expect(users[0]).toHaveProperty('email');
+          expect(users[0]).toHaveProperty('profile_image');
+          expect(users[0]).toHaveProperty('favourite_games');
           resolve(response.body.data.users);
         }
       });
