@@ -30,8 +30,6 @@ interface GamesGridProps {
 }
 
 const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
-    console.log("term: ", term);
-
     const {data, error, loading} = useQuery(EXTERNAL_GAMES_BY_NAME, {
         variables: {name: term},
         context: {
@@ -41,11 +39,9 @@ const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
         }
     });
 
-    console.log("error: ", error);
-
     if (error) {
         console.log(error);
-        return <p>Error :(</p>;
+        return <p>Error :c</p>;
     }
 
     if (loading) return <p>Loading...</p>;
@@ -65,7 +61,7 @@ export default function Games(): JSX.Element {
     if (typeof localStorage.getItem('token') == undefined) {
         const Router = useRouter()
         alert('Log in, dumbass')
-        Router.push('/dashboard')
+        Router.push('/sign-in')
     }
 
     return (
