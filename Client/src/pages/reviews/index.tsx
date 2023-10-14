@@ -20,13 +20,18 @@ function ReviewPage() {
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
-  const gameId = localStorage.getItem('gameId') || '0';
+
+
+  let gameId = '0';
+if (typeof window !== 'undefined') {
+  gameId = localStorage.getItem('gameId') || '0';
+}
 
   const { loading : gameLoading, error: gameError, data : gameData } = useQuery(EXTERNAL_GAME_BY_ID, {
     variables: { gameApiId: parseInt(gameId) },
     context: {
       headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        authorization: `Bearer ${token}`,
       }
     }
   });
@@ -38,7 +43,7 @@ function ReviewPage() {
     variables: { gameApiId: parseInt(gameId) },
     context: {
         headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
+          authorization: `Bearer ${token}`,
         }
     }
 });
@@ -48,7 +53,7 @@ function ReviewPage() {
   const [createReview] = useMutation(CREATE_REVIEW, {
     context: {
       headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        authorization: `Bearer ${token}`,
       }
     }
   });
