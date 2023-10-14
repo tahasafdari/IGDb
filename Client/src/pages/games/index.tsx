@@ -1,20 +1,20 @@
 import styles from '../../styles/games.module.css';
 import { EXTERNAL_GAMES_BY_NAME } from '../../graphql/queries';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { isPropertyAccessOrQualifiedName } from 'typescript';
 import { useRouter } from 'next/router';
 
 interface GameCardProps {
     imageUrl: string;
+    title: string;
     ID: string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
+const GameCard: React.FC<GameCardProps> = ({imageUrl, ID, title }) => {
     const Router = useRouter()
     function redirect() {
         if(typeof window !== 'undefined'){
-        localStorage.setItem('gameId', ID)
+            localStorage.setItem('gameId', ID)
         }
         console.log(`gameId saved to localStorage: ${localStorage.getItem('gameId')}`);
         Router.push(`/reviews`)
@@ -22,6 +22,7 @@ const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
 
     return (
         <div className={styles.gameCard} onClick={redirect}>
+            <p>{title}</p>
             <img src={imageUrl} className={styles.gameImage} id={ID} />
         </div>
     );
@@ -35,8 +36,8 @@ interface GamesGridProps {
 const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
     let token : string | null = null
     if(typeof window !== 'undefined'){
-        token = localStorage.getItem('token') 
-        }
+        token = localStorage.getItem('token')
+    }
     const {data, error, loading} = useQuery(EXTERNAL_GAMES_BY_NAME, {
         variables: {name: term},
         context: {
@@ -54,9 +55,9 @@ const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
     if (loading) return <p>Loading...</p>;
 
     const info = data.externalGamesByName;
-    
+
     const gameCards = info.map((data: any, index: number) => (
-        <GameCard key={index} imageUrl={data.image} ID = {data.gameApiId} />
+        <GameCard key={index} imageUrl={data.image} ID = {data.gameApiId} title = {data.title} />
     ));
 
     return <div className={styles.gamesGrid}>{gameCards}</div>;
@@ -67,11 +68,11 @@ export default function Games(): JSX.Element {
     if(typeof window !== 'undefined'){
         if (typeof localStorage.getItem('token') == undefined) {
             const Router = useRouter()
-            alert('Log in, dumbass')
+            alert('You must log in first.')
             Router.push('/sign-in')
         }
     }
-    
+
 
 
     return (
@@ -88,7 +89,7 @@ export default function Games(): JSX.Element {
             <div className={styles.content}>
                 <div className={styles.searchContainer}>
                     <div className={styles.searchTitle}>Search for games:</div>
-                        <input className={styles.searchBar} type="text" placeholder="Search..." onChange={e => setTerm(e.target.value)}/>
+                    <input className={styles.searchBar} type="text" placeholder="Search..." onChange={e => setTerm(e.target.value)}/>
                 </div>
                 <div className={styles.gamesContainer}>
                     {/* grid of games */}

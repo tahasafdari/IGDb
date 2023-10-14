@@ -39,7 +39,7 @@
     width: 65%;
     left: 300px;
     position: relative;
-    margin-top: 100px;
+    margin-top: 90px;
 }
 
 .gamesGrid {
@@ -48,7 +48,7 @@
     padding: 20px;
     margin: 10px;
     transition: ease-in-out 0.2s;
-    min-width: 900px;
+    max-width: 1200px;
     height: 100%;
     display: flex;
     flex-wrap: wrap; /* Add this line to allow items to wrap to the next row */
@@ -57,21 +57,52 @@
 .gameImage {
     border: white 4px solid;
     border-radius: 40px;
-    min-height: auto;
-    min-width: 250px;
+    height: 130px;
+    min-width: 220px;
+    background-size: cover;
 }
 
 .gameCard {
     margin: 10px;
     flex: 1; /* Allow the cards to take up equal space in the row */
-    max-width: calc(25% - 10px); /* Set max-width to 25% to ensure 4 items per row with margins */
+    max-width: calc(25% - 3px); /* Set max-width to 25% to ensure 4 items per row with margins */
     transition: ease-in-out 0.2s;
 }
 
+.gameCard p {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background: rgba(42, 43, 44, 0.38); /* Adjust the background color and opacity as needed */
+    color: white;
+    transition: opacity 0.2s;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 10px;
+    left: 70px;
+    top: 30px;
+    max-width: 100px;
+    display: none;
+    backdrop-filter: blur(10px);
+    font-family: Poppins, sans-serif;
+}
+
+.gameCard:hover p {
+    display: initial;
+}
 .gameCard:hover {
     cursor: pointer;
     filter: brightness(1.4);
     transform: translateY(-5px);
+}
+
+@media (min-width: 1200px) {
+    .gamesContainer {
+        width: 85%;
+        left: 250px;
+        position: relative;
+        margin-top: 130px;
+    }
 }
 
 /* Media query for smaller screens */
