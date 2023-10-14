@@ -89,7 +89,7 @@ function ReviewPage() {
     >
       <GameDetails title={info.title} description={info.description} coverImage={info.image} />
       <UserReviews reviews={userReviews} />
-      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} />
+      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} onRatingChange={setRating} />
       <style>
         {`
         /* scroll bar styling has to be here because of nextjs */

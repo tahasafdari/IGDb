@@ -7,10 +7,11 @@ import styles from '@/styles/review.module.css'
 
 type ReviewInputProps = {
   onReviewChange: (review: string, rating: number) => void;
-  onSubmit: () => void;  
+  onSubmit: () => void;
+  onRatingChange: (score: number) => void;  
 };
 
-const ReviewInput = ({ onReviewChange, onSubmit } : ReviewInputProps) => {
+const ReviewInput = ({ onReviewChange, onSubmit, onRatingChange } : ReviewInputProps) => {
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
 
@@ -20,8 +21,10 @@ const ReviewInput = ({ onReviewChange, onSubmit } : ReviewInputProps) => {
   };
 
   const handleRatingChange = (newRating: number) => {
+    console.log("user Rating : ", newRating);
     setRating(newRating);
-    onReviewChange(review, newRating);
+    onRatingChange(newRating);
+    
   };
 
   return (
