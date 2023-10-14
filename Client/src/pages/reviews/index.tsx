@@ -8,19 +8,20 @@ import Loading from '@/components/reviews/load/loading';
 import { EXTERNAL_GAME_BY_ID } from '@/graphql/queries';
 import { useQuery, useMutation } from '@apollo/client';
 import { CREATE_REVIEW } from '@/graphql/mutations';
+import { GET_REVIEWS_BY_GAME_ID } from '@/graphql/queries';
 
 function ReviewPage() {
   const [userReview, setUserReview] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Assuming you start by fetching data
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
 
   let token: string | null = null;
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
   const gameId = localStorage.getItem('gameId');
-  const { loading, error, data } = useQuery(EXTERNAL_GAME_BY_ID, {
+  const { loading : gameLoading, error: gameError, data : gameData } = useQuery(EXTERNAL_GAME_BY_ID, {
     variables: { gameApiId: parseInt(gameId) },
     context: {
       headers: {
@@ -28,6 +29,20 @@ function ReviewPage() {
       }
     }
   });
+
+
+
+  // Fetch reviews for the game
+  const { loading: reviewsLoading, error: reviewsError, data: reviewsData } = useQuery(GET_REVIEWS_BY_GAME_ID, {
+    variables: { gameId: gameId },
+    context: {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+    }
+});
+  console.log("Review Data: " , reviewsData)
+
 
   const [createReview] = useMutation(CREATE_REVIEW, {
     context: {
@@ -37,26 +52,26 @@ function ReviewPage() {
     }
   });
 
-  if (loading) return <Loading />;
-  if (error) {
-    console.error(error);
-    return <div>Error: {error.message}</div>;
-  }
 
+  if (gameLoading || reviewsLoading) return <Loading />;
+    if (gameError) {
+        console.error(gameError);
+        return <div>Error: {gameError.message}</div>;
+    }
+    if (reviewsError) {
+        console.error(reviewsError);
+        return <div>Error: {reviewsError.message}</div>;
+    }
 
-  const info = data.externalGameByApiId;
+  const info = gameData.externalGameByApiId;
 
-  const userReviews = [
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 5 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 5 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 4.5 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 3 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 1 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 5 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 2 },
-    { username: "John", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 4 },
-    { username: "Jane", profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-06", review: "Good game but has bugs.", rating: 3 }
-  ];
+  const userReviews = reviewsData.reviewsByGameId.map(review => ({
+    username: review.owner.user_name,
+   // profileImage: review.owner.profile_image,
+    date: new Date(review.createdAt).toISOString().split('T')[0], // format the date
+    review: review.text,
+    rating: review.score,
+}));
 
   const handleSubmit = () => {
     createReview({

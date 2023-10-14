@@ -27,10 +27,22 @@ const EXTERNAL_GAME_BY_ID = gql`
       title
       description
       image
-      gameApiId
+    }
+  }
+`;
+
+const GET_REVIEWS_BY_GAME_ID = gql`
+query ReviewsByGameId($gameId: ID!) {
+    reviewsByGameId(gameId: $gameId) {
+      text
+      score
+      createdAt
+      owner {
+        user_name
+      }
     }
   }
 `;
 
 
-export { USER_BY_ID, EXTERNAL_GAMES_BY_NAME, EXTERNAL_GAME_BY_ID }
+export { USER_BY_ID, EXTERNAL_GAMES_BY_NAME, EXTERNAL_GAME_BY_ID, GET_REVIEWS_BY_GAME_ID }
