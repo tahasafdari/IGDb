@@ -10,6 +10,17 @@ import { useQuery, useMutation } from '@apollo/client';
 import { CREATE_REVIEW } from '@/graphql/mutations';
 import { GET_REVIEWS_BY_GAME_ID } from '@/graphql/queries';
 
+
+function NoReviewsMessage() {
+  return (
+    <div className="flex justify-center items-center h-32 bg-gray-100 rounded-lg my-4">
+      <p className="text-center text-gray-600">
+        No review for this game yet. You can make one!
+      </p>
+    </div>
+  );
+}
+
 function ReviewPage() {
   const [userReview, setUserReview] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Assuming you start by fetching data
@@ -119,7 +130,7 @@ if (typeof window !== 'undefined') {
       style={{ backgroundImage: 'url(https://media.discordapp.net/attachments/1142756461026476043/1161685359084699719/image.png?ex=653932cc&is=6526bdcc&hm=15ecf8791d994fe7bd83ffb393617f073f469cd406d88522082dfba6e4c18cb9&)' }}
     >
       <GameDetails title={info.title} description={info.description} coverImage={info.image} />
-      <UserReviews reviews={userReviews} />
+      { userReviews.length === 0 ? <NoReviewsMessage /> : <UserReviews reviews={userReviews} /> }
       <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} onRatingChange={setRating} userReview={userReview} />
       <style>
         {`
