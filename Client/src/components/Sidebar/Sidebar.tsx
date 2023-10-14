@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { IRoute } from "@/types/navigation";
 import MenuIcon from '@mui/icons-material/Menu';
+import styles from '../../styles/sidebar.module.css';
 
 interface SidebarProps {
   routes: IRoute[];
@@ -23,18 +24,18 @@ const Sidebar = ({ routes }: SidebarProps): JSX.Element => {
         <MenuIcon />
       </button>
 
-      <div className={`fixed top-0 left-0 w-64 h-screen bg-gray-800 text-white shadow-lg transform transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
-      
+      <div className={styles.navBar}
+
       >
         <div className="flex items-center justify-center py-6">
-          <span className="text-2xl font-semibold">IGDB</span>
+          <span className={styles.navTitle}>IGDB</span>
         </div>
         <nav>
           <ul>
             {routes.map((route, index) => (
-              <li key={index} className="hover:bg-gray-700">
+              <li key={index} className={styles.navLinks}>
                 <Link href={route.path} passHref>
-                  <span className="font-bold text-lg hover:text-white px-8 py-4 flex items-center justify-center space-x-20">
+                  <span className={styles.navLinks}>
                     {route.icon && <route.icon className="mr-2" />}
                     {route.name}
                   </span>
