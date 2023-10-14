@@ -45,7 +45,8 @@ if (typeof window !== 'undefined') {
         headers: {
           authorization: `Bearer ${token}`,
         }
-    }
+    },
+    pollInterval: 1000 // refetch the data every 5 seconds
 });
   console.log("Review Data: " , reviewsData)
 
@@ -104,6 +105,7 @@ if (typeof window !== 'undefined') {
     })
       .then(response => {
         console.log(response.data);
+        setUserReview('');
       })
       .catch(err => {
         console.error("Error creating review:", err);
@@ -118,7 +120,7 @@ if (typeof window !== 'undefined') {
     >
       <GameDetails title={info.title} description={info.description} coverImage={info.image} />
       <UserReviews reviews={userReviews} />
-      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} onRatingChange={setRating} />
+      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} onRatingChange={setRating} userReview={userReview} />
       <style>
         {`
         /* scroll bar styling has to be here because of nextjs */
