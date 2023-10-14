@@ -1,16 +1,16 @@
 import styles from '../../styles/games.module.css';
 import { EXTERNAL_GAMES_BY_NAME } from '../../graphql/queries';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { isPropertyAccessOrQualifiedName } from 'typescript';
 import { useRouter } from 'next/router';
 
 interface GameCardProps {
     imageUrl: string;
+    title: string;
     ID: string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
+const GameCard: React.FC<GameCardProps> = ({imageUrl, ID, title }) => {
     const Router = useRouter()
     function redirect() {
         if(typeof window !== 'undefined'){
@@ -22,6 +22,7 @@ const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
 
     return (
         <div className={styles.gameCard} onClick={redirect}>
+            <p>{title}</p>
             <img src={imageUrl} className={styles.gameImage} id={ID} />
         </div>
     );
@@ -56,7 +57,7 @@ const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
     const info = data.externalGamesByName;
     
     const gameCards = info.map((data: any, index: number) => (
-        <GameCard key={index} imageUrl={data.image} ID = {data.gameApiId} />
+        <GameCard key={index} imageUrl={data.image} ID = {data.gameApiId} title = {data.title} />
     ));
 
     return <div className={styles.gamesGrid}>{gameCards}</div>;
