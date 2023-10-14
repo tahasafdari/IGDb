@@ -13,8 +13,8 @@ import { GET_REVIEWS_BY_GAME_ID } from '@/graphql/queries';
 
 function NoReviewsMessage() {
   return (
-    <div className="flex justify-center items-center h-32 bg-gray-100 rounded-lg my-4">
-      <p className="text-center text-gray-600">
+    <div className="flex justify-center items-center h-32 my-4">
+      <p className="text-center text-white">
         No review for this game yet. You can make one!
       </p>
     </div>
