@@ -7,7 +7,7 @@ import styles from '@/styles/review.module.css'
 type UserReviewProps = {
   username: string;
   profileImage: string;
-  date: string;
+  createdAt: String;
   review: string;
   rating: number;
 };
@@ -29,7 +29,7 @@ const UserReviews = ({ reviews }: UserReviewsProps) => (
         </div>
         
         <p className='items-center'>{review.review}</p>
-        <p className={styles.dateText}>{review.date}</p>
+        <p className={styles.dateText}>{review.createdAt}</p>
       </div>
     ))}
   </div>

@@ -1,52 +1,137 @@
 // pages/review.tsx
-
 import React, { useState } from 'react';
 import GameDetails from '@/components/reviews/gameDetails/gamedetails';
 import ReviewInput from '@/components/reviews/reviewInput/reviewInput';
 import SubmitButton from '@/components/reviews/submitButton/submitButton';
 import UserReviews from '@/components/reviews/userReviewProps/userReview';
 import Loading from '@/components/reviews/load/loading';
-import aboutIGDB from '@/components/image/aboutIGDB.png'
-import avatar1 from '../../../public/assets/avatars/avatar1.png'
+import { EXTERNAL_GAME_BY_ID } from '@/graphql/queries';
+import { useQuery, useMutation } from '@apollo/client';
+import { CREATE_REVIEW } from '@/graphql/mutations';
+import { GET_REVIEWS_BY_GAME_ID } from '@/graphql/queries';
+
+
+function NoReviewsMessage() {
+  return (
+    <div className="flex justify-center items-center h-32 my-4">
+      <p className="text-center text-white">
+        No review for this game yet. You can make one!
+      </p>
+    </div>
+  );
+}
 
 function ReviewPage() {
   const [userReview, setUserReview] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Assuming you start by fetching data
 
-  // Mock data, replace with actual API data
-  const gameDetails = {
-    title: "Awesome Game",
-    releaseDate: "2023-10-08",
-    genre: "Adventure",
-    description: "This game is made by a team of 3 people. It is a 2D game with a lot of fun. In this game you are a hero who has to save the world from the evil.",
-    coverImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534',
-  };
+  const [rating, setRating] = useState(1);
 
-  const userReviews = [
-    { username: "John",profileImage: 'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' ,  date: "2023-10-07", review: "Loved it!", rating: 5 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' , date: "2023-10-07", review: "Loved it!", rating: 5 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 4.5 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 3 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' ,date: "2023-10-07", review: "Loved it!", rating: 1 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534', date: "2023-10-07", review: "Loved it!", rating: 5 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' ,date: "2023-10-07", review: "Loved it!", rating: 2 },
-    { username: "John",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' ,date: "2023-10-07", review: "Loved it!", rating: 4 },
-    { username: "Jane",profileImage:'https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' ,date: "2023-10-06", review: "Good game but has bugs.", rating: 3 }
-  ];
+  let token: string | null = null;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+  }
+
+
+  let gameId = '0';
+if (typeof window !== 'undefined') {
+  gameId = localStorage.getItem('gameId') || '0';
+}
+
+  const { loading : gameLoading, error: gameError, data : gameData } = useQuery(EXTERNAL_GAME_BY_ID, {
+    variables: { gameApiId: parseInt(gameId) },
+    context: {
+      headers: {
+        authorization: `Bearer ${token}`,
+      }
+    }
+  });
+
+
+
+  // Fetch reviews for the game
+  const { loading: reviewsLoading, error: reviewsError, data: reviewsData } = useQuery(GET_REVIEWS_BY_GAME_ID, {
+    variables: { gameApiId: parseInt(gameId) },
+    context: {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+    },
+    pollInterval: 1000 // refetch the data every 5 seconds
+});
+  console.log("Review Data: " , reviewsData)
+
+
+  const [createReview] = useMutation(CREATE_REVIEW, {
+    context: {
+      headers: {
+        authorization: `Bearer ${token}`,
+      }
+    }
+  });
+
+
+  if (gameLoading || reviewsLoading) return <Loading />;
+    if (gameError) {
+        console.error(gameError);
+        return <div>Error: {gameError.message}</div>;
+    }
+    if (reviewsError) {
+        console.error(reviewsError);
+        return <div>Error: {reviewsError.message}</div>;
+    }
+
+  const info = gameData.externalGameByApiId;
+
+  let profileImageFromLocalStorage = null as string | null;
+  if (typeof window !== 'undefined') {
+  const userData = localStorage.getItem('user');
+  if (userData) {
+    const parsedUserData = JSON.parse(userData);
+    profileImageFromLocalStorage = parsedUserData.profile_image;
+  }
+}
+  const userReviews = reviewsData.reviewsByGameId.map( review => ({
+    username: review.owner.user_name,
+    profileImage: profileImageFromLocalStorage,
+    date: new Date(review.createdAt).toISOString().split('T')[0], // format the date
+    review: review.text,
+    rating: review.score,
+}));
 
   const handleSubmit = () => {
-    // Logic to submit the userReview to API
+    createReview({
+      variables: {
+        review: {
+          text: userReview,
+          score: rating,
+          game: { gameApiId: parseInt(gameId) }
+        }
+      },
+      context: {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        setUserReview('');
+      })
+      .catch(err => {
+        console.error("Error creating review:", err);
+      });
   };
 
- // if (isLoading) return <Loading />;
+  // if (isLoading) return <Loading />;
 
   return (
     <div className='h-screen bg-cover'
-    style={{ backgroundImage: 'url(https://media.discordapp.net/attachments/1142756461026476043/1161685359084699719/image.png?ex=653932cc&is=6526bdcc&hm=15ecf8791d994fe7bd83ffb393617f073f469cd406d88522082dfba6e4c18cb9&)' }}
+      style={{ backgroundImage: 'url(https://media.discordapp.net/attachments/1142756461026476043/1161685359084699719/image.png?ex=653932cc&is=6526bdcc&hm=15ecf8791d994fe7bd83ffb393617f073f469cd406d88522082dfba6e4c18cb9&)' }}
     >
-      <GameDetails {...gameDetails} />
-      <UserReviews reviews={userReviews} />
-      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} />
+      <GameDetails title={info.title} description={info.description} coverImage={info.image} />
+      { userReviews.length === 0 ? <NoReviewsMessage /> : <UserReviews reviews={userReviews} /> }
+      <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} onRatingChange={setRating} userReview={userReview} />
       <style>
         {`
         /* scroll bar styling has to be here because of nextjs */
