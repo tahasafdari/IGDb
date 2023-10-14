@@ -32,8 +32,8 @@ const EXTERNAL_GAME_BY_ID = gql`
 `;
 
 const GET_REVIEWS_BY_GAME_ID = gql`
-query ReviewsByGameId($gameId: ID!) {
-    reviewsByGameId(gameId: $gameId) {
+query ReviewsByGameId($gameApiId: Int!) {
+    reviewsByGameId(gameApiId: $gameApiId) {
       text
       score
       createdAt

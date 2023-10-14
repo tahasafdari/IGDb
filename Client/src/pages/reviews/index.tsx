@@ -20,7 +20,8 @@ function ReviewPage() {
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
-  const gameId = localStorage.getItem('gameId');
+  const gameId = localStorage.getItem('gameId') || '0';
+
   const { loading : gameLoading, error: gameError, data : gameData } = useQuery(EXTERNAL_GAME_BY_ID, {
     variables: { gameApiId: parseInt(gameId) },
     context: {
@@ -34,7 +35,7 @@ function ReviewPage() {
 
   // Fetch reviews for the game
   const { loading: reviewsLoading, error: reviewsError, data: reviewsData } = useQuery(GET_REVIEWS_BY_GAME_ID, {
-    variables: { gameId: gameId },
+    variables: { gameApiId: parseInt(gameId) },
     context: {
         headers: {
             authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -65,9 +66,17 @@ function ReviewPage() {
 
   const info = gameData.externalGameByApiId;
 
-  const userReviews = reviewsData.reviewsByGameId.map(review => ({
+  let profileImageFromLocalStorage = null as string | null;
+  if (typeof window !== 'undefined') {
+  const userData = localStorage.getItem('user');
+  if (userData) {
+    const parsedUserData = JSON.parse(userData);
+    profileImageFromLocalStorage = parsedUserData.profile_image;
+  }
+}
+  const userReviews = reviewsData.reviewsByGameId.map( review => ({
     username: review.owner.user_name,
-   // profileImage: review.owner.profile_image,
+    profileImage: profileImageFromLocalStorage,
     date: new Date(review.createdAt).toISOString().split('T')[0], // format the date
     review: review.text,
     rating: review.score,
