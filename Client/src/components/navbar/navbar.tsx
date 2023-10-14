@@ -34,6 +34,15 @@ function ResponsiveAppBar() {
     window.location.href = '/sign-in'
   }
 
+  let profileImageFromLocalStorage = null as string | null;
+  if (typeof window !== 'undefined') {
+  const userData = localStorage.getItem('user');
+  if (userData) {
+    const parsedUserData = JSON.parse(userData);
+    profileImageFromLocalStorage = parsedUserData.profile_image;
+  }
+}
+
   
 
   return (
@@ -74,7 +83,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar className={'border 18px solid black rounded-full shadow-xl'} alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar className={'border 18px solid black rounded-full shadow-xl'} alt="User Avatar" src={profileImageFromLocalStorage || "/static/images/avatar/2.jpg"} />
               </IconButton>
             </Tooltip>
             <Menu
