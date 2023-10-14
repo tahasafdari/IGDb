@@ -1,6 +1,7 @@
 import {Game} from '../interfaces/Game';
 import {VerboseGame} from '../interfaces/VerboseGame';
 import RawgToGame from './RawgToGame';
+import fetch from 'node-fetch';
 
 /**
  * @param id The RAWG API id of the game to search for.

@@ -1,0 +1,4 @@
+.navBar {
+    backdrop-filter: blur(10px); /* Adjust the blur value as needed */
+    background-color: rgba(175, 33, 33, 0.5); /* Adjust the alpha value for transparency */
+}
