@@ -61,19 +61,22 @@ export default {
      */
     reviewsByGameId: async (
       _: undefined,
-      args: {gameId: string},
+      args: {gameApiId: number},
       user: UserIdWithToken
     ) => {
       checkAuth(user);
-      const game = await gameModel.findById(args.gameId);
+      const game = await gameModel.find({
+        gameApiId: args.gameApiId,
+      });
       if (!game) {
         throw new GraphQLError('Game not found', {
           extensions: {code: 'NOT_FOUND'},
         });
       }
+      const gameMongoId = game[0]._id;
       const reviews = reviewModel
         .find({
-          game: game,
+          game: gameMongoId,
         })
         .populate('owner game') as unknown as Review[];
       return reviews;

@@ -25,7 +25,7 @@ type Query {
   # Retrieves reviews by the owner's unique ID.
   reviewsByOwnerId(ownerId: ID!): [Review!]!
   # Retrieves reviews by the game's unique ID.
-  reviewsByGameId(gameId: ID!): [Review!]!
+  reviewsByGameId(gameApiId: Int!): [Review!]!
 }
 
 # Mutation Type: Defines available mutations for modifying review data.
