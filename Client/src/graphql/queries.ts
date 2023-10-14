@@ -21,5 +21,16 @@ const EXTERNAL_GAMES_BY_NAME = gql`
     }
   }
 `
+const EXTERNAL_GAME_BY_ID = gql`
+  query ExternalGameByApiId($gameApiId: Int!) {
+    externalGameByApiId(gameApiId: $gameApiId) {
+      title
+      description
+      image
+      gameApiId
+    }
+  }
+`;
 
-export { USER_BY_ID, EXTERNAL_GAMES_BY_NAME }
+
+export { USER_BY_ID, EXTERNAL_GAMES_BY_NAME, EXTERNAL_GAME_BY_ID }

@@ -10,7 +10,7 @@ interface GameCardProps {
     ID: string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({imageUrl, ID }) => {
+const GameCard = ({imageUrl, ID } : GameCardProps) => {
     const Router = useRouter()
     function redirect() {
         if(typeof window !== 'undefined'){

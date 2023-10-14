@@ -16,4 +16,21 @@ const UPDATE_USER = gql`
     }
 `;
 
-export default UPDATE_USER;
+const CREATE_REVIEW = gql`
+  mutation CreateReview($review: InputReview!) {
+    createReview(review: $review) {
+      id
+      text
+      score
+      game {
+        id
+        title
+      }
+      owner {
+        user_name
+      }
+    }
+  }
+`;
+
+export { UPDATE_USER, CREATE_REVIEW};
