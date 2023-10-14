@@ -31,12 +31,17 @@ interface GamesGridProps {
     term: string;
 }
 
+
 const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
+    let token : string | null = null
+    if(typeof window !== 'undefined'){
+        token = localStorage.getItem('token') 
+        }
     const {data, error, loading} = useQuery(EXTERNAL_GAMES_BY_NAME, {
         variables: {name: term},
         context: {
             headers: {
-                authorization: `Bearer ${localStorage.getItem('token')}`,
+                authorization: `Bearer ${token}`,
             }
         }
     });
@@ -59,12 +64,14 @@ const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
 
 export default function Games(): JSX.Element {
     const [term, setTerm] = useState('');
-
-    if (typeof localStorage.getItem('token') == undefined) {
-        const Router = useRouter()
-        alert('Log in, dumbass')
-        Router.push('/sign-in')
+    if(typeof window !== 'undefined'){
+        if (typeof localStorage.getItem('token') == undefined) {
+            const Router = useRouter()
+            alert('Log in, dumbass')
+            Router.push('/sign-in')
+        }
     }
+    
 
 
     return (
