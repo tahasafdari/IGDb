@@ -14,8 +14,34 @@ import { useQuery } from '@apollo/client'
 import {USER_BY_ID} from '@/graphql/queries'
 import { useEffect, useState } from 'react'
 import { User } from '@/components/interfaces/User'
+
+/**
+ * @file This is the navbar component, it is used for user to navigate through their profile, favorite games, and settings
+ */
+
+/**
+ * @description Settings for the user menu
+ * @type {string[]}
+ * @constant
+ */
 const settings = ['Profile', 'My Games', 'Logout']
 
+/**
+ * @function
+ * @name ResponsiveAppBar
+ * @description A responsive navigation bar component.
+ * 
+ * This component provides a responsive app bar that includes user settings options.
+ * The user settings dropdown has options for navigating to the user's profile,
+ * viewing their games, and logging out. The user's avatar is displayed on the app bar,
+ * and when clicked, it triggers the dropdown menu with the user settings.
+ * 
+ * @returns {JSX.Element} The responsive app bar component.
+ * 
+ * @example
+ * // Usage:
+ * <ResponsiveAppBar />
+ */
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
   const router = useRouter()
@@ -25,10 +51,22 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget)
   }
 
+  /**
+   * @function
+   * @name handleOpenUserMenu
+   * @description Handles the opening of the user menu dropdown.
+   * @param {React.MouseEvent<HTMLElement>} event - The triggering mouse event.
+   */
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
 
+  /**
+   * @function
+   * @name handleLogout
+   * @description Handles the logout process by removing authentication related
+   * data from local storage and then redirecting the user to the sign-in page.
+   */
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -36,7 +74,7 @@ function ResponsiveAppBar() {
     handleCloseUserMenu()
     window.location.href = '/sign-in'
   }
-
+  // GraphQL query to fetch user data by ID
   const { data, loading, error } = useQuery(USER_BY_ID, {
     variables: { id: user?.id },
     context: {
@@ -45,6 +83,7 @@ function ResponsiveAppBar() {
       },
     },
   })
+  // Effect to initialize user data from local storage
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user') || 'null')
     if (userData) {
@@ -52,7 +91,7 @@ function ResponsiveAppBar() {
     }
   }, [])
 
-
+  // JSX for the responsive app bar
   return (
     <AppBar
       position="absolute"

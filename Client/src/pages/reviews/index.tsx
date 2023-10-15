@@ -11,7 +11,14 @@ import { GET_REVIEWS_BY_GAME_ID } from '@/graphql/queries';
 import {USER_BY_ID} from '@/graphql/queries'
 import { useEffect } from 'react'
 import { User } from '@/components/interfaces/User'
-
+import styles from '@/styles/review.module.css';
+/**
+ * `NoReviewsMessage` React component.
+ * 
+ * Represents a placeholder message displayed when there are no reviews available for a game.
+ * 
+ * @returns {JSX.Element} A visual representation of a message indicating no reviews are present.
+ */
 function NoReviewsMessage() {
   return (
     <div className="flex justify-center items-center h-32 my-4">
@@ -21,18 +28,20 @@ function NoReviewsMessage() {
     </div>
   );
 }
-
+/**
+ * `ReviewPage` React component.
+ * 
+ * Represents a user's game review page. This page allows users to read details about a game,
+ * check other users' reviews for that game, and submit their own review.
+ * 
+ * @returns {JSX.Element} A visual representation of the game review page.
+ */
 function ReviewPage() {
   const [userReview, setUserReview] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Assuming you start by fetching data
 
   const [rating, setRating] = useState(1);
   const [user, setUser] = useState<User | null>(null)
-  //const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-
-
-  
- 
 
   let token: string | null = null;
   if (typeof window !== 'undefined') {
@@ -107,7 +116,7 @@ if (typeof window !== 'undefined') {
   const userReviews = reviewsData.reviewsByGameId.map( (review: { owner: { user_name: any; profile_image: any }; createdAt: string | number | Date; text: any; score: any;  }) => ({
     username: review.owner.user_name,
     profileImage: review.owner.profile_image,
-    date: new Date(review.createdAt).toISOString().split('T')[0], // format the date
+    date: new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.'), // format the date
     review: review.text,
     rating: review.score,
 }));
@@ -138,9 +147,10 @@ if (typeof window !== 'undefined') {
   // if (isLoading) return <Loading />;
 
   return (
-    <div className='h-screen bg-cover'
+    <div className='h-screen bg-cover reviewPageContainer'
       style={{ backgroundImage: 'url(https://media.discordapp.net/attachments/1142756461026476043/1161685359084699719/image.png?ex=653932cc&is=6526bdcc&hm=15ecf8791d994fe7bd83ffb393617f073f469cd406d88522082dfba6e4c18cb9&)' }}
     >
+      <div className={styles.contentAboveInput}>
       <GameDetails title={info.title} description={info.description} coverImage={info.image} />
       { userReviews.length === 0 ? <NoReviewsMessage /> : <UserReviews reviews={userReviews} /> }
       <ReviewInput onReviewChange={setUserReview} onSubmit={handleSubmit} onRatingChange={setRating} userReview={userReview} />
@@ -175,6 +185,7 @@ if (typeof window !== 'undefined') {
           }
         `}
       </style>
+    </div>
     </div>
   );
 }

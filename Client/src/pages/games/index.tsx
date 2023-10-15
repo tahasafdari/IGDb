@@ -9,7 +9,15 @@ interface GameCardProps {
     title: string;
     ID: string;
 }
-
+/**
+ * `GameCard` React component.
+ * 
+ * Represents an individual game card containing the game's title and image.
+ * When clicked, the component redirects the user to the reviews page for that specific game.
+ * 
+ * @param {GameCardProps} props - Props for the GameCard component.
+ * @returns {JSX.Element} A visual representation of an individual game card.
+ */
 const GameCard: React.FC<GameCardProps> = ({imageUrl, ID, title }) => {
     const Router = useRouter()
     function redirect() {
@@ -31,7 +39,14 @@ interface GamesGridProps {
     term: string;
 }
 
-
+/**
+ * `GamesGrid` React component.
+ * 
+ * Represents a grid of game cards. The games displayed are based on the search term provided.
+ * 
+ * @param {GamesGridProps} props - Props for the GamesGrid component.
+ * @returns {JSX.Element} A visual representation of a grid of game cards.
+ */
 const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
     let token : string | null = null
     if(typeof window !== 'undefined'){
@@ -61,7 +76,15 @@ const GamesGrid: React.FC<GamesGridProps> = ({term}) => {
 
     return <div className={styles.gamesGrid}>{gameCards}</div>;
 };
-
+/**
+ * `Games` React component.
+ * 
+ * Represents the main "Games" page where users can search for their favorite games and review them.
+ * Users can type a game's name into the search bar, which will then display matching games in a grid below.
+ * Clicking on a game card redirects the user to a page where they can provide a review for that game.
+ * 
+ * @returns {JSX.Element} A visual representation of the user's "Games" page.
+ */
 export default function Games(): JSX.Element {
     const [term, setTerm] = useState('');
     if(typeof window !== 'undefined'){

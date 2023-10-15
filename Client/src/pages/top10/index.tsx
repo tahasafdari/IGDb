@@ -1,7 +1,15 @@
 import React from 'react';
 import {inspect} from "util";
 import styles from '../../styles/top10.module.css';
-
+/**
+ * `Top10` React component.
+ * 
+ * Represents a visual display of the top 10 games based on IGDB ratings. Each game title in the list 
+ * is presented as a clickable link that redirects to its respective official or store page. 
+ * The component also includes an aesthetic background and a header indicating the list's context.
+ * 
+ * @returns {JSX.Element} A visual representation of the top 10 games list.
+ */
 const Top10 = (): JSX.Element => {
     return (<div className='h-screen bg-cover'
                  style={{backgroundImage: 'url(https://media.discordapp.net/attachments/1142756461026476043/1161689305215946804/image.png?ex=65393679&is=6526c179&hm=9c994f15138392fbb82ce67260aa008c4b729dcaa620d4576a17b7c7de1e4cfd&)'}}

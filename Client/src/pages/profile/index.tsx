@@ -10,13 +10,22 @@ import { User } from '@/components/interfaces/User'
 import { useQuery } from '@apollo/client'
 import {USER_BY_ID} from '@/graphql/queries'
 import styles from '../../styles/profile.module.css'
-
+/**
+ * `Settings` React component.
+ * 
+ * Represents a user's profile page. This page displays the user's profile information 
+ * including the profile picture, and provides areas to update user information and 
+ * change the user's password.
+ * 
+ * @returns {JSX.Element} A visual representation of the user's profile/settings page.
+ */
 export default function Settings() {
+  // State to hold the user's data.
   const [user, setUser] = useState<User | null>(null)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   
 
-
+  // Apollo Client query to fetch user data by their ID.
   const { data, loading, error } = useQuery(USER_BY_ID, {
     variables: { id: user?.id },
     context: {
@@ -25,7 +34,7 @@ export default function Settings() {
       },
     },
   })
-
+  // useEffect hook to fetch the user data from local storage when the component mounts.  
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user') || 'null')
     if (userData) {

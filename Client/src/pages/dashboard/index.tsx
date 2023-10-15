@@ -4,7 +4,18 @@ import {useRouter} from "next/router";
 import {inspect} from "util";
 import styles from '../../styles/dashboard.module.css';
 import {transition} from "@chakra-ui/react";
-
+/**
+ * `Dashboard` React component.
+ * 
+ * The Dashboard component serves as the main landing page that users see after logging in.
+ * It presents a background image, a captivating title, a brief description of the IGDB platform,
+ * and a series of thumbnails representing different games.
+ * 
+ * The user is also provided with a "Learn More" button that redirects them to the "About" section of IGDB.
+ * 
+ * @component
+ * @returns {JSX.Element} A visual representation of the user's dashboard on IGDB.
+ */
 const Dashboard = (): JSX.Element => {
   const router = useRouter();
 

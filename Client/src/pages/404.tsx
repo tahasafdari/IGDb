@@ -2,7 +2,20 @@ import Head from 'next/head';
 import NextLink from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Container, SvgIcon, Typography } from '@mui/material';
-
+/**
+ * `Page` React component.
+ * 
+ * Represents a custom 404 error page for the application. When users navigate to a route
+ * that doesn't exist in the Next.js app, this component is displayed to provide feedback.
+ * 
+ * The component renders:
+ * - A custom error image.
+ * - An error message indicating that the page wasn't found.
+ * - A suggestion that the user might have tried a non-existent route or made a mistake.
+ * - A button that redirects the user back to the main page.
+ * 
+ * @returns {JSX.Element} The content of the 404 error page.
+ */
 const Page = () => (
   <>
     <Head>

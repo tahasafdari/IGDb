@@ -11,7 +11,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRouter } from 'next/router';
-
+/**
+ * `Copyright` React component.
+ * 
+ * Represents a reusable footer message indicating copyright information.
+ * 
+ * @param props - Standard props passed to the Typography component.
+ * @returns {JSX.Element} A visual representation of the copyright message.
+ */
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -27,10 +34,24 @@ function Copyright(props: any) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-
+/**
+ * `SignUp` React component.
+ * 
+ * Represents a user sign-up page. Users can provide their username, email, and password to
+ * register and gain access to the platform.
+ * 
+ * @returns {JSX.Element} A visual representation of the sign-up page.
+ */
 export default function SignUp() {
   const router = useRouter();
-  
+   /**
+   * `handleSubmit` method.
+   * 
+   * Handles form submission for user registration. Sends user details to the authentication server,
+   * processes the server response, and either redirects the user to the sign-in page or displays an error.
+   * 
+   * @param event - A React form event.
+   */
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

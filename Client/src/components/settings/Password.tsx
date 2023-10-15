@@ -7,7 +7,19 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { UserModify } from '../interfaces/User'
 import { UPDATE_USER } from '@/graphql/mutations'
-
+/**
+ * A component that allows users to change their account password.
+ * 
+ * This component provides input fields for users to enter their old password
+ * and set a new password. Upon submission, it sends the modified data through a
+ * GraphQL mutation to update the user's password.
+ * 
+ * @returns {JSX.Element} The settings component for changing the password.
+ * 
+ * @example
+ * // Usage:
+ * <Settings />
+ */
 export default function Settings() {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('navy.700', 'white')
