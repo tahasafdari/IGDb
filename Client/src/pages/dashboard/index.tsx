@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 import {useRouter} from "next/router";
-import {inspect} from "util";
 import styles from '../../styles/dashboard.module.css';
-import {transition} from "@chakra-ui/react";
+
 /**
  * `Dashboard` React component.
  * 
@@ -22,6 +21,10 @@ const Dashboard = (): JSX.Element => {
   const navigateToAbout = () => {
     router.push('/about');
   };
+
+  const navigateToGames = () => {
+    router.push('/games');
+  };
   return (
     <div
       className="fixed top-0 left-0 w-full h-screen flex flex-col justify-center p-8 bg-cover z-10"
@@ -29,6 +32,8 @@ const Dashboard = (): JSX.Element => {
     >
       {/* Overlay with reduced opacity */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
+
+      
 
       {/* Content */}
       <div className="relative z-10 text-center">
@@ -42,11 +47,13 @@ const Dashboard = (): JSX.Element => {
         </button>
         <div className={styles.thumbnailContainer}>
           {/* Images for demo */}
-          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' alt="Game 1" />
-          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620036906569819/image.png?ex=653552a4&is=6522dda4&hm=e17947216646deed164e621d9d573095abbd89d3d44c4f96a6f0dd8213b940fd&=&width=757&height=534' alt="Game 2" />
-          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620036361298100/image.png?ex=653552a3&is=6522dda3&hm=b0fa0338804ce92bcf22bf4d0a2ccf7cbead53468c6609159d1c2b8c8109a670&=&width=756&height=534' alt="Game 3" />
-          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620036038332547/image.png?ex=653552a3&is=6522dda3&hm=7091cd0ab56720deed60a26105da840965a89e026b08cb94f2e091f5f4032cca&=&width=757&height=534' alt="Game 4" />
+          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620037208543444/image.png?ex=653552a4&is=6522dda4&hm=70796db29d951010a44b1eebffc35d53561e29b98bad24b59ec7ca122f5ed8fc&=&width=756&height=534' alt="Game 1" onClick={navigateToGames} />
+          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620036906569819/image.png?ex=653552a4&is=6522dda4&hm=e17947216646deed164e621d9d573095abbd89d3d44c4f96a6f0dd8213b940fd&=&width=757&height=534' alt="Game 2" onClick={navigateToGames}/>
+          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620036361298100/image.png?ex=653552a3&is=6522dda3&hm=b0fa0338804ce92bcf22bf4d0a2ccf7cbead53468c6609159d1c2b8c8109a670&=&width=756&height=534' alt="Game 3" onClick={navigateToGames}/>
+          <img className={styles.thumbnail} src='https://media.discordapp.net/attachments/942001801799024643/1160620036038332547/image.png?ex=653552a3&is=6522dda3&hm=7091cd0ab56720deed60a26105da840965a89e026b08cb94f2e091f5f4032cca&=&width=757&height=534' alt="Game 4" onClick={navigateToGames}/>
         </div>
+        
+
       </div>
     </div>
   );

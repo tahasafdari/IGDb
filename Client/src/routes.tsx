@@ -15,11 +15,11 @@ const routes: IRoute[] = [
         path : '/games',
         icon : SportsEsportsIcon,
     } ,
-    {
-        name : 'REVIEWS',
-        path : '/reviews',
-        icon : ReviewsIcon,
-    } ,
+    // {
+    //     name : 'REVIEWS',
+    //     path : '/reviews',
+    //     icon : ReviewsIcon,
+    // } ,
     {
         name : 'Top 10',
         path : '/top10',
