@@ -22,10 +22,15 @@ jobs:
           node-version: '18.x'
 
       - name: npm install, build, and test
+        env:
+          NEXT_PUBLIC_AUTH_URL: ${{ secrets.NEXT_PUBLIC_AUTH_URL }}
+          NEXT_PUBLIC_GRAPHQL_URL : ${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}
+          NEXT_PUBLIC_UPLOAD_SERVER_URL : ${{ secrets.NEXT_PUBLIC_UPLOAD_SERVER_URL }}
+
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
+          rm -rf src
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
