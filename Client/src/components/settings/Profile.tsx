@@ -11,11 +11,19 @@ import {
 import Card from '@/components/card/Card'
 import { NextAvatar } from '@/components/image/Avatar'
 import { StaticImageData } from 'next/image'
+import * as React from 'react'
+import { UPDATE_USER } from '@/graphql/mutations'
+import { useMutation } from '@apollo/client'
+import { User, UserModify } from '../interfaces/User'
+import { useState } from 'react'
 
 export default function Settings(props: { name: string; avatar: string; banner: string }) {
   const { name, avatar, banner } = props
   const textColorPrimary = useColorModeValue('navy.700', 'white')
   const textColorSecondary = 'gray.500'
+  const [imageURL, setImageURL] = useState('')
+
+  const [updateUser] = useMutation(UPDATE_USER)
 
   // For handling the file input change and URL input change
   const handleFileChange = (event: any) => {
@@ -23,9 +31,17 @@ export default function Settings(props: { name: string; avatar: string; banner: 
     console.log(event.target.files)
   }
 
-  const handleURLChange = (url: string) => {
-    // Handle the URL input here
-    console.log(url)
+  const handleURLChange = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const user: User = { profile_image: imageURL }
+      const { data } = await updateUser({
+        variables: { user: user },
+        context: { headers: { Authorization: `Bearer ${token}` } },
+      })
+    } catch (err) {
+      alert(err)
+    }
   }
   return (
     <>
@@ -58,9 +74,10 @@ export default function Settings(props: { name: string; avatar: string; banner: 
               borderWidth="1px"
               mr="1rem" // A bit of margin for spacing between input and button
               maxW="250px" // Limit width to prevent it from taking the whole space
+              onChange={(e: any) => setImageURL(e.target.value)}
             />
             <Button
-              onClick={() => handleURLChange(document.querySelector('input').value)}
+              onClick={handleURLChange}
               borderColor="black"
               borderWidth="1px"
               borderRadius="5px"

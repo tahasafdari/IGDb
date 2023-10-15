@@ -1,9 +1,9 @@
 interface User {
-    id: string;
+    id?: string;
     user_name?: string;
     email?: string;
     password?: string;
-    profile_image?: string;
+    profile_image: string;
     favourite_games?: string[];
 }
 

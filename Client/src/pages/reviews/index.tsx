@@ -8,7 +8,9 @@ import { EXTERNAL_GAME_BY_ID } from '@/graphql/queries';
 import { useQuery, useMutation } from '@apollo/client';
 import { CREATE_REVIEW } from '@/graphql/mutations';
 import { GET_REVIEWS_BY_GAME_ID } from '@/graphql/queries';
-
+import {USER_BY_ID} from '@/graphql/queries'
+import { useEffect } from 'react'
+import { User } from '@/components/interfaces/User'
 
 function NoReviewsMessage() {
   return (
@@ -25,6 +27,12 @@ function ReviewPage() {
   const [isLoading, setIsLoading] = useState(true); // Assuming you start by fetching data
 
   const [rating, setRating] = useState(1);
+  const [user, setUser] = useState<User | null>(null)
+  //const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+
+
+  
+ 
 
   let token: string | null = null;
   if (typeof window !== 'undefined') {
@@ -56,7 +64,7 @@ if (typeof window !== 'undefined') {
           authorization: `Bearer ${token}`,
         }
     },
-    pollInterval: 1000 // refetch the data every 5 seconds
+    pollInterval: 1000 // refetch the data every 1 seconds
 });
 
   const [createReview] = useMutation(CREATE_REVIEW, {
@@ -66,6 +74,21 @@ if (typeof window !== 'undefined') {
       }
     }
   });
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('user') || 'null')
+    if (userData) {
+      setUser(userData)
+    }
+  }, [])
+
+  const { data, loading, error } = useQuery(USER_BY_ID, {
+    variables: { id: user?.id },
+    context: {
+      headers: {
+        Authorization: `Bearer ${token || ''}`,
+      },
+    },
+  })
 
 
   if (gameLoading || reviewsLoading) return <Loading />;
@@ -78,17 +101,12 @@ if (typeof window !== 'undefined') {
 
   const info = gameData.externalGameByApiId;
 
-  let profileImageFromLocalStorage = null as string | null;
-  if (typeof window !== 'undefined') {
-  const userData = localStorage.getItem('user');
-  if (userData) {
-    const parsedUserData = JSON.parse(userData);
-    profileImageFromLocalStorage = parsedUserData.profile_image;
-  }
-}
-  const userReviews = reviewsData.reviewsByGameId.map( review => ({
+
+
+
+  const userReviews = reviewsData.reviewsByGameId.map( (review: { owner: { user_name: any; profile_image: any }; createdAt: string | number | Date; text: any; score: any;  }) => ({
     username: review.owner.user_name,
-    profileImage: profileImageFromLocalStorage,
+    profileImage: review.owner.profile_image,
     date: new Date(review.createdAt).toISOString().split('T')[0], // format the date
     review: review.text,
     rating: review.score,

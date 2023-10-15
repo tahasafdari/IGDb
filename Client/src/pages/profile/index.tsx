@@ -14,6 +14,8 @@ import styles from '../../styles/profile.module.css'
 export default function Settings() {
   const [user, setUser] = useState<User | null>(null)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  
+
 
   const { data, loading, error } = useQuery(USER_BY_ID, {
     variables: { id: user?.id },

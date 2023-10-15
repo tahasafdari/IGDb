@@ -22,8 +22,10 @@ export default function Settings() {
   const [updateUser] = useMutation(UPDATE_USER)
   const handleUpdate = async () => {
     try {
+      const userFromLocalStorage = JSON.parse(localStorage.getItem('user') || 'null')
+      const oldEmail = userFromLocalStorage?.email
       const token = localStorage.getItem('token')
-      const user: UserModify = { user_name: username, email: email }
+      const user: UserModify = { user_name: username, email : email ? email : oldEmail  }
       const { data } = await updateUser({
         variables: {
           user: user,
