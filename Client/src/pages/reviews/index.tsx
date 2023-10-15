@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import GameDetails from '@/components/reviews/gameDetails/gamedetails';
 import ReviewInput from '@/components/reviews/reviewInput/reviewInput';
-import SubmitButton from '@/components/reviews/submitButton/submitButton';
 import UserReviews from '@/components/reviews/userReviewProps/userReview';
 import Loading from '@/components/reviews/load/loading';
 import { EXTERNAL_GAME_BY_ID } from '@/graphql/queries';
@@ -59,8 +58,6 @@ if (typeof window !== 'undefined') {
     },
     pollInterval: 1000 // refetch the data every 5 seconds
 });
-  console.log("Review Data: " , reviewsData)
-
 
   const [createReview] = useMutation(CREATE_REVIEW, {
     context: {
@@ -73,11 +70,9 @@ if (typeof window !== 'undefined') {
 
   if (gameLoading || reviewsLoading) return <Loading />;
     if (gameError) {
-        console.error(gameError);
         return <div>Error: {gameError.message}</div>;
     }
     if (reviewsError) {
-        console.error(reviewsError);
         return <div>Error: {reviewsError.message}</div>;
     }
 
@@ -115,11 +110,10 @@ if (typeof window !== 'undefined') {
       }
     })
       .then(response => {
-        console.log(response.data);
         setUserReview('');
       })
       .catch(err => {
-        console.error("Error creating review:", err);
+        alert(err);
       });
   };
 

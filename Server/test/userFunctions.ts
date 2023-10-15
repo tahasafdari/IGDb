@@ -163,7 +163,6 @@ const loginUser = (
         if (err) {
           reject(err);
         } else {
-          console.log(response.body);
           const data = response.body.data.login;
           expect(data).toHaveProperty('message');
           expect(data).toHaveProperty('token');

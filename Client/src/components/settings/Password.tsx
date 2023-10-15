@@ -6,7 +6,7 @@ import InputField from '@/components/fields/InputField'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { UserModify } from '../interfaces/User'
-import UPDATE_USER from '@/graphql/mutations'
+import { UPDATE_USER } from '@/graphql/mutations'
 
 export default function Settings() {
   // Chakra Color Mode
@@ -19,20 +19,18 @@ export default function Settings() {
     try {
       const token = localStorage.getItem('token')
       const user: UserModify = { password: password }
-      console.log('Bearer ' + token)
       const { data } = await updateUser({
         variables: {
-          user: user
+          user: user,
         },
         context: {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       })
-      console.log(data)
     } catch (err) {
-      console.log(err)
+      alert(err)
     }
   }
   return (

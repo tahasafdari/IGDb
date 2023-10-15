@@ -22,7 +22,6 @@ const ReviewInput = ({ onReviewChange, onSubmit, onRatingChange, userReview } : 
   };
 
   const handleRatingChange = (newRating: number) => {
-    console.log("user Rating : ", newRating);
     setRating(newRating);
     onRatingChange(newRating);
     

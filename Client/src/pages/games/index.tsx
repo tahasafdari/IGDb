@@ -16,7 +16,6 @@ const GameCard: React.FC<GameCardProps> = ({imageUrl, ID, title }) => {
         if(typeof window !== 'undefined'){
             localStorage.setItem('gameId', ID)
         }
-        console.log(`gameId saved to localStorage: ${localStorage.getItem('gameId')}`);
         Router.push(`/reviews`)
     }
 

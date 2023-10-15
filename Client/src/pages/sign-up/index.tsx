@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 
 function Copyright(props: any) {
   return (
@@ -28,6 +29,7 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const router = useRouter();
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,16 +51,14 @@ export default function SignUp() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("User registered:", result);
-        // TODO: Redirect or show success message
+        alert(result.message);
+        router.push('/sign-in');
       
       } else {
         console.error("Error registering user:", await response.text());
-        // TODO: Show error message to user
       }
     } catch (error) {
       console.error("Error:", error);
-      // TODO: Handle network errors or other issues
     }
 };
 
