@@ -24,20 +24,20 @@ import { User } from '@/components/interfaces/User'
  * @type {string[]}
  * @constant
  */
-const settings = ['Profile', 'Logout']
+const settings = ['Profile', 'My Games', 'Logout']
 
 /**
  * @function
  * @name ResponsiveAppBar
  * @description A responsive navigation bar component.
- * 
+ *
  * This component provides a responsive app bar that includes user settings options.
  * The user settings dropdown has options for navigating to the user's profile,
  * viewing their games, and logging out. The user's avatar is displayed on the app bar,
  * and when clicked, it triggers the dropdown menu with the user settings.
- * 
+ *
  * @returns {JSX.Element} The responsive app bar component.
- * 
+ *
  * @example
  * // Usage:
  * <ResponsiveAppBar />
@@ -91,6 +91,7 @@ function ResponsiveAppBar() {
     }
   }, [])
 
+  const uploadServerURL = process.env.NEXT_PUBLIC_UPLOAD_SERVER_URL as string;
   // JSX for the responsive app bar
   return (
     <AppBar
@@ -100,7 +101,7 @@ function ResponsiveAppBar() {
       <Container
         maxWidth="xl"
         sx={{ margin: '0 auto' }}
-        
+
       >
         <Toolbar disableGutters>
           {/* <TextField
@@ -130,7 +131,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar src={data ? data.userById.profile_image : user?.profile_image} className={'border 18px solid black rounded-full shadow-xl'} alt="User Avatar"   />
+              <Avatar src={uploadServerURL + user?.profile_image} className={'border 18px solid black rounded-full shadow-xl'} alt="User Avatar"   />
               </IconButton>
             </Tooltip>
             <Menu
@@ -175,5 +176,4 @@ function ResponsiveAppBar() {
   )
 
 }
-
 export default ResponsiveAppBar
