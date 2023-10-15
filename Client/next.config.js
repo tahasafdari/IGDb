@@ -3,12 +3,16 @@ const nextConfig = {}
 
 module.exports = {
   nextConfig,
-  images: { 
+  images: {
     remotePatterns: [
         {
           protocol: "https",
-          hostname: "**",
+          hostname: "**"
         },
-      ],
-  },
+        {
+            protocol: "http",
+            hostname: "**"
+        }
+      ]
+  }
 }

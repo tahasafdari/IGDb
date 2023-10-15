@@ -59,11 +59,13 @@ export default function Settings(props: { name: string; avatar: string; banner: 
       alert(err)
     }
   }
+  // uploadServerURL is the URL of the avatar image
+  const uploadServerURL = 'http://localhost:5001/file/' + avatar;
   return (
     <>
       <Card mb="20px" alignItems="center">
         <Flex bg={banner} w="100%" h={`${129}px`} />
-        <NextAvatar mx="auto" src={avatar} h="87px" w="87px" mt="-43px" mb="15px" />
+        <NextAvatar mx="auto" src={uploadServerURL} h="87px" w="87px" mt="-43px" mb="15px" />
         {/* Input for uploading a new avatar */}
         {/* <Input type="file" onChange={handleFileChange} mb="10px" /> */}
         {/* Input for pasting the URL of the desired avatar */}
