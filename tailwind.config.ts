@@ -1,3 +1,5 @@
+import exp from "constants";
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   media: false, // or 'media' or 'class'
@@ -92,3 +94,4 @@ module.exports = {
   },
   plugins: [],
 };
+export {};
