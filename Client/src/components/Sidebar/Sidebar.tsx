@@ -7,7 +7,26 @@ import styles from '../../styles/sidebar.module.css';
 interface SidebarProps {
   routes: IRoute[];
 }
-
+/**
+ * Sidebar component for navigation.
+ * 
+ * This component provides a sidebar navigation menu that displays a list of routes
+ * provided to it. It supports responsive design, making it suitable for both desktop and mobile
+ * views. In mobile view, the sidebar can be toggled open and close with a button.
+ * 
+ * @param routes - An array of `IRoute` objects, where each object represents a navigation route
+ * with a path, name, and optional icon.
+ * 
+ * @returns {JSX.Element} The rendered Sidebar component.
+ * 
+ * @example
+ * const routes = [
+ *   { path: "/home", name: "Home", icon: HomeIcon },
+ *   { path: "/profile", name: "Profile", icon: UserProfileIcon }
+ * ];
+ * 
+ * <Sidebar routes={routes} />
+ */
 const Sidebar = ({ routes }: SidebarProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 

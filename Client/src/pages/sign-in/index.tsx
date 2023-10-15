@@ -13,7 +13,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-
+/**
+ * `Copyright` React component.
+ * 
+ * Represents a reusable footer message indicating copyright information.
+ * 
+ * @param props - Standard props passed to the Typography component.
+ * @returns {JSX.Element} A visual representation of the copyright message.
+ */
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,9 +35,25 @@ function Copyright(props: any) {
 }
 
 const defaultTheme = createTheme()
-
+/**
+ * `SignInSide` React component.
+ * 
+ * Represents a user sign-in page. This component allows users to input their email and password
+ * to authenticate and gain access to the platform.
+ * 
+ * @returns {JSX.Element} A visual representation of the sign-in page.
+ */
 export default function SignInSide() {
   const Router = useRouter()
+   /**
+   * `handleSubmit` method.
+   * 
+   * Handles form submission for user sign-in. This method sends user credentials to the
+   * authentication server, handles the response, stores the received token, and redirects
+   * the user to the dashboard.
+   * 
+   * @param event - A React form event.
+   */
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)

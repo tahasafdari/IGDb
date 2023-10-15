@@ -1,4 +1,7 @@
 // Chakra imports
+/**
+ * @file Info.tsx is the settings page for the user to change their username and email
+ */
 import * as React from 'react'
 import { Flex, FormControl, Text, useColorModeValue } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
@@ -10,7 +13,19 @@ import { UPDATE_USER } from '@/graphql/mutations'
 import { useMutation } from '@apollo/client'
 import { Button } from '@mui/material'
 import { UserModify } from '../interfaces/User'
-
+/**
+ * A component that allows users to update their account settings.
+ * 
+ * This component provides input fields for users to modify their username and email.
+ * It fetches the current user data from the local storage, and upon submission, it sends
+ * the modified data to be updated through a GraphQL mutation.
+ * 
+ * @returns {JSX.Element} The settings component.
+ * 
+ * @example
+ * // Usage:
+ * <Settings />
+ */
 export default function Settings() {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('navy.700', 'white')

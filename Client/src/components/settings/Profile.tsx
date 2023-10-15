@@ -16,7 +16,23 @@ import { UPDATE_USER } from '@/graphql/mutations'
 import { useMutation } from '@apollo/client'
 import { User, UserModify } from '../interfaces/User'
 import { useState } from 'react'
-
+/**
+ * A component that allows users to update their profile settings.
+ *
+ * This component provides functionalities for users to modify their avatar and banner images.
+ * It supports changing avatar via a direct URL. The updated avatar data is then sent through a
+ * GraphQL mutation to update the user's profile.
+ *
+ * @param name - The name of the user.
+ * @param avatar - The current avatar image URL of the user.
+ * @param banner - The current banner image URL of the user.
+ *
+ * @returns {JSX.Element} The settings component for updating profile images.
+ *
+ * @example
+ * // Usage:
+ * <Settings name="John Doe" avatar="/path/to/avatar.jpg" banner="/path/to/banner.jpg" />
+ */
 export default function Settings(props: { name: string; avatar: string; banner: string }) {
   const { name, avatar, banner } = props
   const textColorPrimary = useColorModeValue('navy.700', 'white')

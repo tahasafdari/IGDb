@@ -1,6 +1,15 @@
 import React from 'react';
 import styles from '../../styles/about.module.css';
-
+/**
+ * `About` React component.
+ * 
+ * The About component provides an overview of what IGDB is and how it works.
+ * It features a background image, a comprehensive description of the IGDB platform,
+ * and an image representing a game with credits.
+ * 
+ * @component
+ * @returns {JSX.Element} A visual representation of the `About` section of IGDB.
+ */
 const About = (): JSX.Element => {
     return (
         <div className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center p-8 bg-cover z-10"
