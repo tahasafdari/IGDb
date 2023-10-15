@@ -20,7 +20,6 @@ export default function Settings(props: { name: string; avatar: string; banner: 
   const {name, avatar, banner} = props
   const textColorPrimary = useColorModeValue('navy.700', 'white')
   const [imageURL, setImageURL] = useState(avatar);
-
   const uploadServerURL = process.env.NEXT_PUBLIC_UPLOAD_SERVER_URL as string;
   const [updateUser] = useMutation(UPDATE_USER)
 
@@ -44,7 +43,8 @@ export default function Settings(props: { name: string; avatar: string; banner: 
           await updateUser({
               variables: { user: user },
               context: { headers: { Authorization: `Bearer ${token}` } },
-          })
+          });
+          localStorage.setItem('user', JSON.stringify(user));
         });
       } catch (err) {
         alert(err)
@@ -57,7 +57,7 @@ export default function Settings(props: { name: string; avatar: string; banner: 
   return (<>
     <Card mb="20px" alignItems="center">
       <Flex bg={banner} w="100%" h={`${129}px`}/>
-      <NextAvatar mx="auto" src={uploadServerURL + imageURL} h="87px" w="87px" mt="-43px" mb="15px"/>
+      <NextAvatar mx="auto" src={imageURL} h="87px" w="87px" mt="-43px" mb="15px"/>
       <Text
           fontSize="2xl"
           textColor={textColorPrimary}
@@ -71,6 +71,8 @@ export default function Settings(props: { name: string; avatar: string; banner: 
         <Flex justifyContent="center" mb="10px" align="center" mt={'15px'}>
           <Input
               borderColor="black"
+              backgroundColor={useColorModeValue('white', 'gray.700')}
+              borderRadius={'10px'}
               borderWidth="1px"
               type="file"
               mr="1rem"

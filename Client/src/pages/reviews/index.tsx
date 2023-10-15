@@ -14,9 +14,9 @@ import { User } from '@/components/interfaces/User'
 import styles from '@/styles/review.module.css';
 /**
  * `NoReviewsMessage` React component.
- * 
+ *
  * Represents a placeholder message displayed when there are no reviews available for a game.
- * 
+ *
  * @returns {JSX.Element} A visual representation of a message indicating no reviews are present.
  */
 function NoReviewsMessage() {
@@ -30,10 +30,10 @@ function NoReviewsMessage() {
 }
 /**
  * `ReviewPage` React component.
- * 
+ *
  * Represents a user's game review page. This page allows users to read details about a game,
  * check other users' reviews for that game, and submit their own review.
- * 
+ *
  * @returns {JSX.Element} A visual representation of the game review page.
  */
 function ReviewPage() {
@@ -112,10 +112,10 @@ if (typeof window !== 'undefined') {
 
 
 
-
+  const uploadServerURL = process.env.NEXT_PUBLIC_UPLOAD_SERVER_URL as string;
   const userReviews = reviewsData.reviewsByGameId.map( (review: { owner: { user_name: any; profile_image: any }; createdAt: string | number | Date; text: any; score: any;  }) => ({
     username: review.owner.user_name,
-    profileImage: review.owner.profile_image,
+    profileImage: uploadServerURL + review.owner.profile_image,
     date: new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.'), // format the date
     review: review.text,
     rating: review.score,
