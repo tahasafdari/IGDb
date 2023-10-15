@@ -6,6 +6,8 @@ import styles from '../../styles/sidebar.module.css';
 
 interface SidebarProps {
   routes: IRoute[];
+  isOpen?: boolean;
+  toggleSidebar?: () => void;
 }
 /**
  * Sidebar component for navigation.

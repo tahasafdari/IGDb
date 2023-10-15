@@ -24,7 +24,7 @@ import { User } from '@/components/interfaces/User'
  * @type {string[]}
  * @constant
  */
-const settings = ['Profile', 'My Games', 'Logout']
+const settings = ['Profile', 'Logout']
 
 /**
  * @function
