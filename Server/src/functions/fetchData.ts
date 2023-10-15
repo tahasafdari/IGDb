@@ -17,7 +17,6 @@ export default async function fetchData<T>(
 
   // Check if the response status is not OK (not in the range 200-299).
   if (!response.ok) {
-    console.log(response);
     throw new Error('Error while fetching');
   }
 

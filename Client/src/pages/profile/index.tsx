@@ -26,7 +26,6 @@ export default function Settings() {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user') || 'null')
-    console.log(userData)
     if (userData) {
       setUser(userData)
     }

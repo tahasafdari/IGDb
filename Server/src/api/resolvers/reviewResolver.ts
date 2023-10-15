@@ -68,12 +68,20 @@ export default {
       const game = await gameModel.find({
         gameApiId: args.gameApiId,
       });
-      if (!game) {
-        throw new GraphQLError('Game not found', {
-          extensions: {code: 'NOT_FOUND'},
-        });
+
+      let gameMongoId = '';
+      if (game.length < 1) {
+        const gameFromApi = await fetchById(args.gameApiId.toString());
+        if (!gameFromApi) {
+          throw new GraphQLError('Game not found', {
+            extensions: {code: 'NOT_FOUND'},
+          });
+        }
+        const game = new gameModel(gameFromApi);
+        await game.save();
+        gameMongoId = game._id;
       }
-      const gameMongoId = game[0]._id;
+      gameMongoId = game[0]._id;
       const reviews = reviewModel
         .find({
           game: gameMongoId,

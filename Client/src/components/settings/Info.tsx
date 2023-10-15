@@ -6,7 +6,7 @@ import Card from '@/components/card/Card'
 import InputField from '@/components/fields/InputField'
 import TextField from '@/components/fields/TextField'
 import { useState } from 'react'
-import UPDATE_USER from '@/graphql/mutations'
+import { UPDATE_USER } from '@/graphql/mutations'
 import { useMutation } from '@apollo/client'
 import { Button } from '@mui/material'
 import { UserModify } from '../interfaces/User'
@@ -15,33 +15,30 @@ export default function Settings() {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('navy.700', 'white')
   const textColorSecondary = 'gray.500'
-  
-  
+
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
 
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER)
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem('token')
       const user: UserModify = { user_name: username, email: email }
-      console.log('Bearer ' + token)
       const { data } = await updateUser({
         variables: {
-          user: user
+          user: user,
         },
         context: {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       })
-      console.log(data)
     } catch (err) {
-      console.log(err)
+      alert(err)
     }
   }
-  
+
   return (
     <FormControl>
       <Card>

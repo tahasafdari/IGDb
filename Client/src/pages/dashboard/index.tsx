@@ -9,7 +9,7 @@ const Dashboard = (): JSX.Element => {
   const router = useRouter();
 
   const navigateToAbout = () => {
-    router.push('/about').then(r => console.log(r));
+    router.push('/about');
   };
   return (
     <div
