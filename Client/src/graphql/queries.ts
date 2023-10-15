@@ -39,6 +39,7 @@ query ReviewsByGameId($gameApiId: Int!) {
       createdAt
       owner {
         user_name
+        profile_image
       }
     }
   }

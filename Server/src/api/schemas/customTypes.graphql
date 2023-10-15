@@ -48,6 +48,8 @@ type UserOfReview {
   id: ID!
   # The user's username.
   user_name: String!
+  # The URL or path to the user's profile image.
+  profile_image: String
 }
 
 # Represents a message response with a token.
