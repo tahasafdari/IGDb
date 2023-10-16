@@ -1,6 +1,6 @@
 # IGDB - Internet Game Database
 
-Welcome to IGDB, the Internet Game Database, where you can explore, review, and discuss your favorite video games!
+Welcome to IGDb, the Internet Game Database, where you can explore, review, and discuss your favorite video games!
 
 ## Table of Contents
 
@@ -27,10 +27,14 @@ Welcome to IGDB, the Internet Game Database, where you can explore, review, and 
 ## Demo
 
 You can access a live demo of IGDB
-
+[demo](https://igdb-group1.vercel.app/)
 ## Getting Started
 
 Follow these instructions to get a copy of the project up and running on your local machine.
+
+### Installation
+run `npm install` in the root folder to install all dependencies
+run `npm run dev` to start the server
 
 ### Prerequisites
 
@@ -40,7 +44,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ### Links
 
-- [FRONTEND](https://igdbclient.azurewebsites.net/)
+- [FRONTEND](https://igdb-group1.vercel.app/)
 - [APOLLO SANDBOX](https://igdb-backend.azurewebsites.net/graphql)
 
 ## Usage
@@ -48,8 +52,9 @@ Follow these instructions to get a copy of the project up and running on your lo
 - Register an account or log in to an existing one.
 - Browse games, read reviews, and write your own reviews.
 - Follow other users and engage in discussions.
-- Customize your profile and enable dark mode for a personalized experience.
+- Customize your profile for a personalized experience.
 
-## API Documentation
 
-You can find the API documentation (Here goes the link to our documentation) to understand how to interact with the backend GraphQL API.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
