@@ -19,8 +19,9 @@ import {useState} from 'react'
 export default function Settings(props: { name: string; avatar: string; banner: string }) {
   const {name, avatar, banner} = props
   const textColorPrimary = useColorModeValue('navy.700', 'white')
-  const [imageURL, setImageURL] = useState(avatar);
   const uploadServerURL = process.env.NEXT_PUBLIC_UPLOAD_SERVER_URL as string;
+  const [imageURL, setImageURL] = useState(uploadServerURL+avatar);
+ 
   const [updateUser] = useMutation(UPDATE_USER)
 
   // For handling the file input change and URL input change
@@ -37,7 +38,7 @@ export default function Settings(props: { name: string; avatar: string; banner: 
         });
         response.json().then(async (data) => {
           console.log(data);
-          setImageURL(data.file.id);
+          setImageURL(uploadServerURL+data.file.id);
           const token = localStorage.getItem('token')
           const user: User = {profile_image: data.file.id}
           await updateUser({

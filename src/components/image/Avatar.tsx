@@ -30,7 +30,6 @@ export function NextAvatar({
             alt={alt}
             objectFit={'fill'}
             src={src}
-            isProfile={true}
             style={{ ...style, borderRadius: '50%' }}
         />
     );
