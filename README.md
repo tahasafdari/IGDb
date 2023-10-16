@@ -40,8 +40,8 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ### Links
 
-[FRONTEND](https://igdbclient.azurewebsites.net/)
-[APOLLO SANDBOX](https://igdb-backend.azurewebsites.net/graphql)
+- [FRONTEND](https://igdbclient.azurewebsites.net/)
+- [APOLLO SANDBOX](https://igdb-backend.azurewebsites.net/graphql)
 
 ## Usage
 
