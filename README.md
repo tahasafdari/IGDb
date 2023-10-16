@@ -8,7 +8,7 @@ Welcome to IGDB, the Internet Game Database, where you can explore, review, and 
 - [Demo](#demo)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+  - [Links](#links)
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
 - [Contributing](#contributing)
@@ -19,12 +19,10 @@ Welcome to IGDB, the Internet Game Database, where you can explore, review, and 
 - User registration and authentication
 - Game listings with detailed information
 - User-generated game reviews and ratings
-- Commenting on game reviews
 - User profiles and social interactions
 - Personalized game recommendations
 - Advanced search and filtering options
-- Notifications and activity feed
-- Dark mode support
+
 
 ## Demo
 
@@ -40,7 +38,10 @@ Follow these instructions to get a copy of the project up and running on your lo
 - MongoDB (or another NoSQL database)
 - Git (optional, but recommended)
 
-### Installation
+### Links
+
+[FRONTEND](https://igdbclient.azurewebsites.net/)
+[APOLLO SANDBOX](https://igdb-backend.azurewebsites.net/graphql)
 
 ## Usage
 
